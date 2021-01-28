@@ -9,4 +9,6 @@ st.title('Mi primera aplicación')
 
 st.balloons()
 
+st.help(pandas.DataFrame)
+
 st.sidebar.markdown('# Introducción')
