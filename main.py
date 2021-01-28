@@ -7,4 +7,6 @@ import pandas as pd
 
 st.title('Mi primera aplicación')
 
+st.balloons()
+
 st.sidebar.markdown('# Introducción')
