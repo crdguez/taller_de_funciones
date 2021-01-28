@@ -6,8 +6,6 @@ import pandas as pd
 
 st.title('Mi primera aplicación')
 
-latex(x**2+3)
-
 st.balloons()
 
 st.help(pd.DataFrame)
