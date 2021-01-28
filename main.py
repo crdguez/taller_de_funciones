@@ -3,7 +3,9 @@ import streamlit as st
 # working with sample data.
 import numpy as np
 import pandas as pd
+
 from sympy import *
+
 
 x, y, z, t = symbols('x y z t')
 
