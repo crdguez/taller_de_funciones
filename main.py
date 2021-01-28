@@ -4,10 +4,9 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
-from sympy import *
+import sympy as sp
 
-
-x, y, z, t = symbols('x y z t')
+x, y, z, t = sp.symbols('x y z t')
 
 
 
