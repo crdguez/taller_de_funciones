@@ -13,9 +13,9 @@ st.title('Mi primera aplicación')
 
 eq=r'x^2-2x+1'
 
-r'Las soluciones de $$'+ eq +r'$$ son: '+r'$'+latex(solve(parse_latex(eq)))+r'$'
+#r'Las soluciones de $$'+ eq +r'$$ son: '+r'$'+latex(solve(parse_latex(eq)))+r'$'
 
-#'Las soluciones son '+r'$'+', '.join(sol),+r'$'
+r'Las soluciones son '+r'$'+', '.join(map(latex,solve(parse_latex(eq))))+r'$'
 
 
 st.balloons()
