@@ -7,6 +7,8 @@ from sympy import *
 
 st.title('Mi primera aplicación')
 
+solve(x**2-2*x+1)
+
 st.balloons()
 
 st.help(pd.DataFrame)
