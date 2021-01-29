@@ -11,9 +11,9 @@ st.title('Mi primera aplicación')
 
 #sol=solve(x**2-2*x+1)
 
-sol=solve(parse_latex('x^2-2x+1'))
+eq=r'x^2-2x+1'
 
-'Las soluciones son '+r'$'+latex(sol)+r'$'
+'Las soluciones de $$'+ eq +'$$ son: '+r'$'+latex(solve(parse_latex(eq)))+r'$'
 
 #'Las soluciones son '+r'$'+', '.join(sol),+r'$'
 
