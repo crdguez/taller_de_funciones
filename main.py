@@ -8,7 +8,9 @@ x, y, z, t = symbols('x y z t')
 
 st.title('Mi primera aplicación')
 
-solve(x**2-2*x+1)
+sol=solve(x**2-2*x+1)
+
+'Las soluciones son', sol
 
 st.balloons()
 
