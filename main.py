@@ -12,10 +12,11 @@ st.title('Mi primera aplicación')
 #sol=solve(x**2-2*x+1)
 
 eq=r'x^2-2x+1'
+eq=r'x^2-4'
 
 #r'Las soluciones de $$'+ eq +r'$$ son: '+r'$'+latex(solve(parse_latex(eq)))+r'$'
 
-r'Las soluciones son '+r'$'+', '.join(map(latex,solve(parse_latex(eq))))+r'$'
+r'Las soluciones de $$'+ eq +r'$$ son: '+r'$'+', '.join(map(latex,solve(parse_latex(eq))))+r'$'
 
 
 st.balloons()
