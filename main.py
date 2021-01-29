@@ -10,7 +10,7 @@ st.title('Mi primera aplicación')
 
 sol=solve(x**2-2*x+1)
 
-'Las soluciones son', latex(sol)
+'Las soluciones son '+r'$'+latex(sol)+r'$'
 
 
 
