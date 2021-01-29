@@ -3,6 +3,7 @@ import streamlit as st
 # working with sample data.
 import numpy as np
 import pandas as pd
+from sympy import *
 
 st.title('Mi primera aplicación')
 
