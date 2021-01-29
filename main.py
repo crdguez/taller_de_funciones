@@ -10,8 +10,9 @@ st.title('Mi primera aplicación')
 
 sol=solve(x**2-2*x+1)
 
-'Las soluciones son '+r'$'+latex(sol)+r'$'
+# 'Las soluciones son '+r'$'+latex(sol)+r'$'
 
+'Las soluciones son '+r'$'+', '.join(sol),+r'$'
 
 
 st.balloons()
