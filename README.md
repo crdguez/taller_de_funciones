@@ -26,6 +26,11 @@ Si aparece *stopped* lo levantamos con el comando
 ```
 docker start nombre_contenedor
 ```
+Si queremos abrir un terminal en modo root del contenedor:
+
+```
+docker exec -it -u 0 nombre_contenedor /bin/bash
+```
 
 ### Modificar la imagen docker *crdguez/streamlit*
 
