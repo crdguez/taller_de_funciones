@@ -8,7 +8,6 @@ from sympy.parsing.latex import parse_latex
 from sympy import *
 x, y, z, t = symbols('x y z t')
 
-st.balloons()
 
 st.title('Mi primera aplicación')
 
@@ -25,9 +24,9 @@ eq=r'ax^2-4'.replace('a',latex(a))
 
 #r'Las soluciones de $$'+ eq +r'$$ son: '+r'$'+latex(solve(parse_latex(eq)))+r'$'
 
-r'Las raíces de $$'+ eq +r'$$ son: '+r'$'+', '.join(map(latex,solve(parse_latex(eq))))+r'$'
+r'Las raíces del polinomio $$'+ eq +r'$$ son: '+r'$'+', '.join(map(latex,solve(parse_latex(eq))))+r'$'
 
-p1 = plot_implicit(Eq(y,parse_latex(eq)))
+p1 = plot_implicit(Eq(y,parse_latex(eq)), (x, -10, 10), (y, -10, 10))
 fg =  p1._backend.fig
 st.pyplot(fg)
 
