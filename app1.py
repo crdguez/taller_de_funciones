@@ -9,23 +9,37 @@ from sympy import *
 x, y, z, t = symbols('x y z t')
 
 def app() :
-    st.title('Mi primera aplicación')
+    st.title('Funciones cuadráticas')
+    st.markdown(r"""Las funciones *cuadráticas* son las funciones polinómicas de segundo grado.
+    Por tanto tienen una expresión de este tipo:""")
+    st.latex("y=ax^2+bx+c")
+    #st.latex(2*x**2+3*x+3)
 
-    st.markdown('### Ejemplo de uso de $\LaTeX$')
+    st.markdown("**Ejemplo:**")
+    col01, col02, col03 = st.beta_columns(3)
+    col11, col12 = st.beta_columns([1,2])
+    sz = 5
+    with col01 :
+        a = st.select_slider('a',options=list(range(-1*sz,sz+1)),value=1)
+    with col02 :
+        b = st.select_slider(' b',options=list(range(-1*sz,sz+1)),value=1)
+    with col03 :
+        c = st.select_slider('  c',options=list(range(-1*sz,sz+1)),value=1)
+        #st.write('a = ', a, 'b = ', b, 'c = ', c)
+    with col11 :
+        ex=r'ax^2+bx+c'
+        eq = parse_latex(ex).subs('a',a).subs('b',b).subs('c',c)
+        st.markdown('**Función**')
+        st.latex('y='+latex(eq))
+        st.markdown('**Raíces**')
+        st.write(r' $'+ latex(eq)+r'\to$' )
+        st.write(r'$'+r', '.join(map(latex,solve(eq)))+r'$')
+    # sol = r"$Dom\left(f \right)="
+    # sol+=latex(S.Reals - solve_univariate_inequality(x**2-9<0,x, relational=False))+r"$"
+        st.markdown('**Dominio**')
+        st.write(r'$'+latex(S.Reals - singularities(eq,x))+'$')
 
-    #sol=solve(x**2-2*x+1)
-    sz=5
-    a = st.select_slider('a',options=list(range(-1*sz,sz+1)))
-    st.write('El paraḿetro a es: ', a)
-
-    eq=r'x^2-2x+1'
-    eq=r'ax^2-4'.replace('a',latex(a))
-
-
-    #r'Las soluciones de $$'+ eq +r'$$ son: '+r'$'+latex(solve(parse_latex(eq)))+r'$'
-
-    st.write(r'Las raíces del polinomio $$'+ eq +r'$$ son: '+r'$'+', '.join(map(latex,solve(parse_latex(eq))))+r'$')
-
-    p1 = plot_implicit(Eq(y,parse_latex(eq)), (x, -10, 10), (y, -10, 10))
-    fg =  p1._backend.fig
-    st.pyplot(fg)
+    with col12 :
+        p1 = plot_implicit(Eq(y,eq), (x, -10, 10), (y, -10, 10))
+        fg =  p1._backend.fig
+        st.pyplot(fg)
