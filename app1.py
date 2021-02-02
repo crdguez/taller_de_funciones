@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sympy.parsing.latex import parse_latex
+from sympy.plotting.plot import List2DSeries
 from sympy import *
 x, y, z, t = symbols('x y z t')
 
@@ -49,3 +50,33 @@ def app() :
         st.markdown('---')
         st.markdown('Código python usando la librería *streamlit*:')
         # Si está dentro de un *echo* aparecerá el código
+
+    st.subheader('Estudiando el dominio')
+    col21, col22 = st.beta_columns(2)
+    with col21 :
+        st.latex(latex(eq))
+    with col22 :
+        v = st.select_slider('x',options=list(range(-1*sz,sz+1)),value=1)
+
+
+    p2 = plot_implicit(Eq(y,eq), (x, -5, 5), (y, -10, 10), how=False)
+    p2.extend(plot_implicit(Eq(x,v), (x, -5, 5), (y, -10, 10), show=False))
+    vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
+    p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
+    p2.show()
+    fg =  p2._backend.fig
+    st.pyplot(fg)
+
+
+
+    # col31, col32, col33 = st.beta_columns([6,1,3])
+    # with col31 :
+    #     p2 = plot_implicit(Eq(y,eq),show=False)
+    #     p2.extend(plot_implicit(Eq(x,v), show=False))
+    #     vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
+    #     p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
+    #     p2.show()
+    # with col32 :
+    #     st.latex(r'\to')
+    # with col33 :
+    #     st.latex('\lef('+latex(vx)+'\right)')
