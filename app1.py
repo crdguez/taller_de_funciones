@@ -18,18 +18,21 @@ def app() :
         st.latex("y=ax^2+bx+c")
 
         st.markdown("**Ejemplo:**")
+
+        sz = 5
         # Columnas para los deslizadores
         col01, col02, col03 = st.beta_columns(3)
         # Columnas para presentar los datos interactivos
-        col11, col12 = st.beta_columns([1,2])
-        #Tamaño de los deslizadores
-        sz = 5
         with col01 :
             a = st.select_slider('a',options=list(range(-1*sz,sz+1)),value=1)
         with col02 :
             b = st.select_slider(' b',options=list(range(-1*sz,sz+1)),value=1)
         with col03 :
             c = st.select_slider('  c',options=list(range(-1*sz,sz+1)),value=1)
+
+        col11, col12 = st.beta_columns([1,2])
+        #Tamaño de los deslizadores
+
         with col11 :
             ex=r'ax^2+bx+c'
             eq = parse_latex(ex).subs('a',a).subs('b',b).subs('c',c)
@@ -59,24 +62,17 @@ def app() :
         v = st.select_slider('x',options=list(range(-1*sz,sz+1)),value=1)
 
 
-    p2 = plot_implicit(Eq(y,eq), (x, -5, 5), (y, -10, 10), how=False)
-    p2.extend(plot_implicit(Eq(x,v), (x, -5, 5), (y, -10, 10), show=False))
-    vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
-    p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
-    p2.show()
-    fg =  p2._backend.fig
-    st.pyplot(fg)
 
-
-
-    # col31, col32, col33 = st.beta_columns([6,1,3])
-    # with col31 :
-    #     p2 = plot_implicit(Eq(y,eq),show=False)
-    #     p2.extend(plot_implicit(Eq(x,v), show=False))
-    #     vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
-    #     p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
-    #     p2.show()
-    # with col32 :
-    #     st.latex(r'\to')
-    # with col33 :
-    #     st.latex('\lef('+latex(vx)+'\right)')
+    col31, col32, col33 = st.beta_columns([6,1,3])
+    with col31 :
+        p2 = plot_implicit(Eq(y,eq), (x, -5, 5), (y,-10, 10), how=False)
+        p2.extend(plot_implicit(Eq(x,v), (x, -5, 5), (y, -10, 10), show=False))
+        vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
+        p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
+        p2.show()
+        fg =  p2._backend.fig
+        st.pyplot(fg)
+    with col32 :
+         st.latex(r'\to')
+    with col33 :
+         st.latex(r'\left('+latex(vx)+r','+latex(vy)+r'\right)')

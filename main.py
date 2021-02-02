@@ -9,8 +9,11 @@ PAGES = {
 
 st.sidebar.title('Índice')
 selection = st.sidebar.radio("Tipos de funciones", list(PAGES.keys()))
+
 page = PAGES[selection]
 page.app()
+
+
 
 st.sidebar.subheader('Sobre el proyecto')
 st.sidebar.markdown('- Autor: *Carlos Rodríguez*')
