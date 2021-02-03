@@ -76,7 +76,7 @@ def app() :
         st.latex(r'\to')
     with col33 :
         txt = r""" El punto <br>
-        $\left("""+latex(vx)+r','+latex(vy)+r"""\right)$ pertenece a la gráfica. Por
+        - $\left("""+latex(vx)+r','+latex(vy)+r"""\right)$ pertenece a la gráfica. Por
         tanto:"""
         st.markdown(txt,unsafe_allow_html=True)
         txt = r"""- $"""+latex(vx)+""" \in Dom(f)$ y"""
