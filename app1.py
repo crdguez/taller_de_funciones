@@ -67,7 +67,8 @@ def app() :
     with col31 :
         p2 = plot_implicit(Eq(y,eq), (x, -5, 5), (y,-10, 10), how=False)
         p2.extend(plot_implicit(Eq(x,v), (x, -5, 5), (y, -10, 10), show=False))
-        vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
+
+        vx, vy =list(solve([Eq(y,eq),Eq(x,v)]).values()) if degree(eq, gen=x) ==1 else list(solve([Eq(y,eq),Eq(x,v)])[0].values())
         p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
         p2.show()
         fg =  p2._backend.fig
@@ -78,7 +79,7 @@ def app() :
         txt = """ El punto $\left("""+latex(vx)+r','+latex(vy)+r"\right)$"+""" pertenece a la gráfica. Por
         tanto:  \n * $"""+latex(vx)+""" \in Dom(f)$ y  \n * $"""+latex(vy)+""" \in Im(f)$ """
         st.markdown(txt)
-       
+
 #     st.write("Not multi-\nline")
 #     st.write("Still not multi- \nline")
 #     st.write("Ok now it's multi-  \nline")
@@ -86,5 +87,5 @@ def app() :
 #     txt = """ El punto $\left("""+latex(vx)+r','+latex(vy)+r"\right)$"+""" pertenece a la gráfica. Por
 #         tanto:  \n * $"""+latex(vx)+""" \in Dom(f)$ y  \n * $"""+latex(vy)+""" \in Im(f)$ """
 #     st.markdown(txt)
-    
+
 #     st.markdown("Ok now it's multi-  \nline  \n * a ver  \n * a ver 2")

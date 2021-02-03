@@ -32,6 +32,16 @@ Si queremos abrir un terminal en modo root del contenedor:
 docker exec -it -u 0 nombre_contenedor /bin/bash
 ```
 
+### Lanzar un contenedor con aplicaciones guardadas en la carpeta *src*
+
+Por ejemplo
+
+```
+docker run -it -p 8501:8501 -v $PWD:/app  crdguez/streamlit ./src/st_demo_settings.py
+```
+
+
+
 ### Modificar la imagen docker *crdguez/streamlit*
 
 EL fichero *Dockerfile* y *requirements.txt* contienen la información para crear la imagen docker. Se pueden modificar los fichero a gusto del consumidor.

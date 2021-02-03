@@ -3,6 +3,7 @@ import app2
 import streamlit as st
 import numpy as np
 
+
 PAGES = {
     "Funciones cuadráticas": app1,
     "Pruebas": app2,
