@@ -86,3 +86,4 @@ def app() :
     st.write("Not multi-\nline")
     st.write("Still not multi- \nline")
     st.write("Ok now it's multi-  \nline")
+    st.markdown("Ok now it's multi-  \nline")
