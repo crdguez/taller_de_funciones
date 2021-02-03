@@ -39,7 +39,7 @@ EL fichero *Dockerfile* y *requirements.txt* contienen la información para crea
 Para generar la imagen utilizamos este comando o similar:
 
 ```
-docker build -t docker/streamlit
+docker build -t docker/streamlit .
 ```
 
 ## Viendo la aplicación *deployada* en el servicio de Streamlit
