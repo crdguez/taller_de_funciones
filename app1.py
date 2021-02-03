@@ -59,7 +59,7 @@ def app() :
     with col21 :
         st.latex(latex(eq))
     with col22 :
-        v = st.select_slider('x',options=list(range(-1*sz,sz+1)),value=1)
+        v = st.select_slider('x',options=list(np.arange(-3,3.25,0.25)),value=1)
 
 
 
@@ -73,6 +73,13 @@ def app() :
         fg =  p2._backend.fig
         st.pyplot(fg)
     with col32 :
-         st.latex(r'\to')
+        st.latex(r'\to')
     with col33 :
-         st.latex(r'\left('+latex(vx)+r','+latex(vy)+r'\right)')
+        txt = r""" El punto
+        $\left("""+latex(vx)+r','+latex(vy)+r"""\right)$ pertenece a la gráfica. Por
+        tanto:"""
+        st.markdown(txt)
+        txt = r"""- $"""+latex(vx)+""" \in Dom(f)$ y"""
+        st.markdown(txt)
+        txt = r"""- $"""+latex(vy)+""" \in Im(f)$ """
+        st.markdown(txt)
