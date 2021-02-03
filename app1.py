@@ -16,8 +16,7 @@ def app() :
     st.markdown(r"""Las funciones *cuadráticas* son las funciones polinómicas de segundo grado.
     Por tanto tienen una expresión de este tipo:""")
     st.latex("y=ax^2+bx+c")
-    st.slider('Slide me', min_value=0, max_value=10)
-    st.select_slider('Slide to select', options=[1,'2'])
+
     st.markdown("**Ejemplo:**")
 
     sz = 5
