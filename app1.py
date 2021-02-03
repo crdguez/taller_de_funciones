@@ -75,12 +75,8 @@ def app() :
     with col32 :
         st.latex(r'\to')
     with col33 :
-        txt = r""" El punto $\left("""+latex(vx)+r','+latex(vy)+r"""\right)$ pertenece a la gráfica. Por
-        tanto:"""
-        st.markdown(txt)
-        txt = r"""- $"""+latex(vx)+""" \in Dom(f)$ y"""
-        st.markdown(txt)
-        txt = r"""- $"""+latex(vy)+""" \in Im(f)$ """
+        txt = """ El punto $\left("""+latex(vx)+r','+latex(vy)+r"\right)$"+""" pertenece a la gráfica. Por
+        tanto:  \n * $"""+latex(vx)+""" \in Dom(f)$ y  \n * $"""+latex(vy)+""" \in Im(f)$ """
         st.markdown(txt)
        
     st.write("Not multi-\nline")
