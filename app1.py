@@ -82,3 +82,7 @@ def app() :
         st.markdown(txt)
         txt = r"""- $"""+latex(vy)+""" \in Im(f)$ """
         st.markdown(txt)
+       
+    st.write("Not multi-\nline")
+    st.write("Still not multi- \nline")
+    st.write("Ok now it's multi-  \nline")
