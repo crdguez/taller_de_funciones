@@ -87,7 +87,7 @@ def app() :
     st.write("Still not multi- \nline")
     st.write("Ok now it's multi-  \nline")
     st.markdown("Ok now it's multi-  \nline  \n * a ver  \n * a ver 2")
-    txt = """ El punto $\left("""+latex(vx)+r','+latex(vy)+"""\right)$ pertenece a la gráfica. Por
+    txt = """ El punto $\left("""+latex(vx)+r','+latex(vy)+r"\right)$"+""" pertenece a la gráfica. Por
         tanto:  \n * $"""+latex(vx)+""" \in Dom(f)$ y  \n * $"""+latex(vy)+""" \in Im(f)$ """
     st.markdown(txt)
     
