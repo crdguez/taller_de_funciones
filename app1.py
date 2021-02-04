@@ -51,9 +51,10 @@ def app() :
     col11, col12 = st.beta_columns([1,1])
 
     with col11 :
+        corte_x = ' No tiene' if len(list(solveset(eq, domain=S.Reals))) == 0 else "$"+", ".join(map(latex,d['raices']))+"$"
         st.write("**Características**:  \n * Función:  \n     *  $f(x) ="+ \
-            latex(d['exp'])+"$  \n * Corte OX: $"+", ".join(map(latex,d['raices']))+ \
-            "$  \n * Corte OY: $"+latex(d['oy'])+ \
+            latex(d['exp'])+"$  \n * Corte OX: "+corte_x+ \
+            "  \n * Corte OY: $"+latex(d['oy'])+ \
             "$  \n * Dominio: $"+latex(d['dominio'])+"$")
         st.write(d['poly'])
 
