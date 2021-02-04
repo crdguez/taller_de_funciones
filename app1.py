@@ -13,9 +13,13 @@ def carac(exp) :
     # Devuelve un diccionario con las características de la función f(x)=exp
     d = dict()
     d['exp']=exp
-    d['raices']=solve(exp)
+    #d['raices']=solve(exp)
+    d['raices']=list(solveset(exp, domain=S.Reals))
+    d['oy']=exp.subs(x,0)
     d['dominio']=S.Reals - singularities(exp,x)
     d['fg']= plot_implicit(Eq(y,exp), (x, -10, 10), (y, -10, 10))._backend.fig
+    d['poly']=exp.is_polynomial()
+
     return d
 
 def app() :
@@ -42,14 +46,16 @@ def app() :
     ex=r'ax^2+bx+c'
     #ex=r'\frac{1}{x}'
     eq = parse_latex(ex).subs('a',a).subs('b',b).subs('c',c)
+    d = carac(eq)
 
     col11, col12 = st.beta_columns([1,1])
 
     with col11 :
-        d = carac(eq)
         st.write("**Características**:  \n * Función:  \n     *  $f(x) ="+ \
-        latex(d['exp'])+"$  \n * Corte OX: $"+", ".join(map(latex,d['raices']))+ \
-        "$  \n * Dominio: $"+latex(d['dominio'])+"$")
+            latex(d['exp'])+"$  \n * Corte OX: $"+", ".join(map(latex,d['raices']))+ \
+            "$  \n * Corte OY: $"+latex(d['oy'])+ \
+            "$  \n * Dominio: $"+latex(d['dominio'])+"$")
+        st.write(d['poly'])
 
     with col12 :
         # Graficamos la función
@@ -77,7 +83,6 @@ def app() :
     with col31 :
         p2 = plot_implicit(Eq(y,eq), (x, -5, 5), (y,-10, 10), show=False)
         p2.extend(plot_implicit(Eq(x,v), (x, -5, 5), (y, -10, 10), show=False))
-
         vx, vy =list(solve([Eq(y,eq),Eq(x,v)]).values()) if degree(eq, gen=x) == 1 else list(solve([Eq(y,eq),Eq(x,v)])[0].values())
         p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
         p2.show()
