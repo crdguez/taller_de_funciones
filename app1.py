@@ -22,6 +22,28 @@ def carac(exp) :
 
     return d
 
+def dom_rec(eq,cte,dominio=True) :
+    # Devuelve la gráica de la ecuación y la recta, y los puntos de corte
+    p2 = plot_implicit(Eq(y,eq), (x, -5, 5), (y,-10, 10), show=False)
+    p2.extend(plot_implicit(Eq(x,cte), (x, -5, 5), (y, -10, 10), show=False))
+    if eq.is_polynomial() and (degree(eq, gen=x) == 1) :
+        # vx, vy =list(solve([Eq(y,eq),Eq(x,v)]).values())
+        puntos=[]
+        puntos.append(solve([Eq(x,eq),Eq(y,cte)]))
+    else :
+        # vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
+        puntos=solve([Eq(y,eq),Eq(x,cte)])
+
+    for p in list(puntos) :
+        vx,vy= p.values()
+        p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
+        # p2.append(List2DSeries([vx,vx],[vy-0.1,vy-0.1]))
+
+    p2.show()
+    fg =  p2._backend.fig
+
+    return [fg,puntos]
+
 def app() :
     # El eco es para publicar el código después, se puede borrar y eliminar el tabulado
     # with st.echo('below') :
@@ -44,8 +66,10 @@ def app() :
         c = st.select_slider('  c',options=list(range(-1*sz,sz+1)),value=1)
 
     ex=r'ax^2+bx+c'
+
     #ex=r'\frac{1}{x}'
     eq = parse_latex(ex).subs('a',a).subs('b',b).subs('c',c)
+    eq = E**x
     d = carac(eq)
 
     col11, col12 = st.beta_columns([1,1])
@@ -69,6 +93,10 @@ def app() :
     #st.markdown('Código python usando la librería *streamlit*:')
     # Fin de echo, Si está dentro de un *echo* aparecerá el código
 
+    st.pyplot(dom_rec(eq,2)[0])
+    for p in dom_rec(eq,2)[1] :
+        px, py = p.values()
+        st.write(px,py)
 
 
     st.subheader('Estudiando el dominio')
@@ -80,18 +108,19 @@ def app() :
 
 
 
-    col31, col32, col33 = st.beta_columns([6,1,3])
+    col31, col32 = st.beta_columns([6,3])
     with col31 :
         p2 = plot_implicit(Eq(y,eq), (x, -5, 5), (y,-10, 10), show=False)
         p2.extend(plot_implicit(Eq(x,v), (x, -5, 5), (y, -10, 10), show=False))
-        vx, vy =list(solve([Eq(y,eq),Eq(x,v)]).values()) if degree(eq, gen=x) == 1 else list(solve([Eq(y,eq),Eq(x,v)])[0].values())
+        if d['poly'] and (degree(eq, gen=x) == 1) :
+            vx, vy =list(solve([Eq(y,eq),Eq(x,v)]).values())
+        else :
+            vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
         p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
         p2.show()
         fg =  p2._backend.fig
         st.pyplot(fg)
     with col32 :
-        st.latex(r'\to')
-    with col33 :
         txt = """ El punto $\left("""+latex(vx)+r','+latex(vy)+r"\right)$"+""" pertenece a la gráfica. Por
         tanto:  \n * $"""+latex(vx)+""" \in Dom(f)$ y  \n * $"""+latex(vy)+""" \in Im(f)$ """
         st.markdown(txt)
