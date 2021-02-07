@@ -22,54 +22,46 @@ def carac(exp) :
 
     return d
 
-def dom_rec(eq,cte,dominio=True) :
-    # Devuelve la gráica de la ecuación y la recta, y los puntos de corte
+def dom_rec(eq,cte,var=x) :
+    # Devuelve la gráica de la ecuación y la recta, y los puntos de corte con la recta var=ctw
     p2 = plot_implicit(Eq(y,eq), (x, -5, 5), (y,-10, 10), show=False)
-    p2.extend(plot_implicit(Eq(x,cte), (x, -5, 5), (y, -10, 10), show=False))
+    p2.extend(plot_implicit(Eq(var,cte), (x, -5, 5), (y, -10, 10), show=False))
     if eq.is_polynomial() and (degree(eq, gen=x) == 1) :
         # vx, vy =list(solve([Eq(y,eq),Eq(x,v)]).values())
         puntos=[]
-        puntos.append(solve([Eq(x,eq),Eq(y,cte)]))
+        puntos.append(solve([Eq(y,eq),Eq(var,cte)]))
     else :
         # vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
-        puntos=solve([Eq(y,eq),Eq(x,cte)])
-
-    for p in list(puntos) :
-        vx,vy= p.values()
-        p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
-        # p2.append(List2DSeries([vx,vx],[vy-0.1,vy-0.1]))
+        puntos=solve([Eq(y,eq),Eq(var,cte)])
 
     p2.show()
     fg =  p2._backend.fig
+    txt = ""
 
-    return [fg,puntos]
+    for p in list(puntos) :
+        # vx,vy= p.values()
+        if p[x].is_real and p[y].is_real:
+            vx = p[x]
+            vy = p[y]
+            plt.scatter([vx],[vy])
+            plt.text(vx+0.2,vy+0.5,"$\left("""+latex(vx)+r','+latex(vy)+r"\right)$")
+            # p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
 
-def app() :
-    # El eco es para publicar el código después, se puede borrar y eliminar el tabulado
-    # with st.echo('below') :
-    st.title('Funciones cuadráticas')
-    st.markdown(r"""Las funciones *cuadráticas* son las funciones polinómicas de segundo grado.
-    Por tanto tienen una expresión de este tipo:""")
-    st.latex("y=ax^2+bx+c")
+            txt += """  \n El punto $\left("""+latex(vx)+r','+latex(vy)+r"\right)$"+""" pertenece a la gráfica. Por
+            tanto:  \n * $"""+latex(vx)+""" \in Dom(f)$ y  \n * $"""+latex(vy)+""" \in Im(f)$   \n """
 
+    return [fg,puntos, txt]
+
+def app(funcion) :
+    eq, md, title =funcion['eq'],funcion['md'],funcion['title']
+
+    st.title(title)
+    # st.markdown(r"""Las funciones *cuadráticas* son las funciones polinómicas de segundo grado.
+    # Por tanto tienen una expresión de este tipo:""")
+    # st.latex("y=ax^2+bx+c")
+    st.write(md)
     st.markdown("**Ejemplo:**")
 
-    sz = 5
-    # Columnas para los deslizadores
-    col01, col02, col03 = st.beta_columns(3)
-    # Columnas para presentar los datos interactivos
-    with col01 :
-        a = st.select_slider('a',options=list(range(-1*sz,sz+1)),value=1)
-    with col02 :
-        b = st.select_slider(' b',options=list(range(-1*sz,sz+1)),value=1)
-    with col03 :
-        c = st.select_slider('  c',options=list(range(-1*sz,sz+1)),value=1)
-
-    ex=r'ax^2+bx+c'
-
-    #ex=r'\frac{1}{x}'
-    eq = parse_latex(ex).subs('a',a).subs('b',b).subs('c',c)
-    eq = E**x
     d = carac(eq)
 
     col11, col12 = st.beta_columns([1,1])
@@ -80,57 +72,22 @@ def app() :
             latex(d['exp'])+"$  \n * Corte OX: "+corte_x+ \
             "  \n * Corte OY: $"+latex(d['oy'])+ \
             "$  \n * Dominio: $"+latex(d['dominio'])+"$")
-        st.write(d['poly'])
-
+    
     with col12 :
         # Graficamos la función
         st.pyplot(d['fg'])
 
 
+    st.subheader('Estudiando el dominio y el recorrido')
 
-
-    #st.markdown('---')
-    #st.markdown('Código python usando la librería *streamlit*:')
-    # Fin de echo, Si está dentro de un *echo* aparecerá el código
-
-    st.pyplot(dom_rec(eq,2)[0])
-    for p in dom_rec(eq,2)[1] :
-        px, py = p.values()
-        st.write(px,py)
-
-
-    st.subheader('Estudiando el dominio')
-    col21, col22 = st.beta_columns(2)
+    col21, col22, col23 = st.beta_columns(3)
     with col21 :
-        st.latex(latex(eq))
+        st.latex("f(x)="+latex(eq))
     with col22 :
-        v = st.select_slider('x',options=list(np.arange(-3,3.25,0.25)),value=1)
+        var=y if st.radio('',('Dominio','Recorrido')) == 'Recorrido' else x
+    with col23 :
+        cte = st.select_slider(str(var),options=list(np.arange(-3,3.25,0.25)),value=1)
 
-
-
-    col31, col32 = st.beta_columns([6,3])
-    with col31 :
-        p2 = plot_implicit(Eq(y,eq), (x, -5, 5), (y,-10, 10), show=False)
-        p2.extend(plot_implicit(Eq(x,v), (x, -5, 5), (y, -10, 10), show=False))
-        if d['poly'] and (degree(eq, gen=x) == 1) :
-            vx, vy =list(solve([Eq(y,eq),Eq(x,v)]).values())
-        else :
-            vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
-        p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
-        p2.show()
-        fg =  p2._backend.fig
-        st.pyplot(fg)
-    with col32 :
-        txt = """ El punto $\left("""+latex(vx)+r','+latex(vy)+r"\right)$"+""" pertenece a la gráfica. Por
-        tanto:  \n * $"""+latex(vx)+""" \in Dom(f)$ y  \n * $"""+latex(vy)+""" \in Im(f)$ """
-        st.markdown(txt)
-
-#     st.write("Not multi-\nline")
-#     st.write("Still not multi- \nline")
-#     st.write("Ok now it's multi-  \nline")
-#     st.markdown("Ok now it's multi-  \nline  \n * a ver  \n * a ver 2")
-#     txt = """ El punto $\left("""+latex(vx)+r','+latex(vy)+r"\right)$"+""" pertenece a la gráfica. Por
-#         tanto:  \n * $"""+latex(vx)+""" \in Dom(f)$ y  \n * $"""+latex(vy)+""" \in Im(f)$ """
-#     st.markdown(txt)
-
-#     st.markdown("Ok now it's multi-  \nline  \n * a ver  \n * a ver 2")
+    fg, puntos, txt = dom_rec(eq,cte,var)
+    st.pyplot(fg)
+    st.markdown(txt)
