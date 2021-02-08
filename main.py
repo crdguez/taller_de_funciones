@@ -38,16 +38,47 @@ def cuadratica() :
 
 def prop_inversa():
     sz=5
-    st.sidebar.write('Parámetros de proporcionalidad inversa:')
+    st.sidebar.write('Parámetros de la función de proporcionalidad inversa:')
     a = st.sidebar.select_slider('a',options=list(range(-1*sz,sz+1)),value=1)
     b = st.sidebar.select_slider('b',options=list(range(-1*sz,sz+1)),value=1)
-    ex=r'a+\frac{1}{x-b}'
-    eq = parse_latex(ex).subs('a',a).subs('b',b)
+    k = st.sidebar.select_slider('k',options=list(range(-1*sz,sz+1)),value=1)
+    ex=r'a+\frac{k}{x-b}'
+    eq = parse_latex(ex).subs('a',a).subs('b',b).subs('k',k)
     d=dict()
     d['eq']=eq
     d['md']= """Las funciones *de proporcionalidad inversa* son las funciones del tipo:
-       \n  $"""+r"""a+\frac{1}{x-b}$"""
+       \n  $"""+r"""a+\frac{k}{x-b}$"""
     d['title']= 'Funciones de proporcionalidad inversa'
+    return d
+
+def exponencial():
+    sz=3
+    st.sidebar.write('Parámetros de la función exponencial:')
+    rango = list(np.arange(0.25,sz+1,0.25))
+    rango.remove(1)
+    a = st.sidebar.select_slider('a',options=rango,value=2)
+    ex=r'a^x'
+    eq = parse_latex(ex).subs('a',a)
+    d=dict()
+    d['eq']=eq
+    d['md']= """Las funciones *exponenciales* son las funciones del tipo:
+       \n  $"""+r"""a^x$"""
+    d['title']= 'Funciones exponenciales'
+    return d
+
+def logaritmica():
+    sz=3
+    st.sidebar.write('Parámetros de la función logarítmica:')
+    rango = list(np.arange(0.25,sz+1,0.25))
+    rango.remove(1)
+    a = st.sidebar.select_slider('a',options=rango,value=2)
+    ex=r'\log_{a}x'
+    eq = log(x,a,evaluate=False).subs('a',a)
+    d=dict()
+    d['eq']=eq
+    d['md']= """Las funciones *logarítmicas* son las funciones del tipo:
+       \n  $"""+r"""\log_{a}x$"""
+    d['title']= 'Funciones logarítmicas'
     return d
 
 PAGES = {
@@ -59,6 +90,8 @@ FUNCIONES = {
     "Lineales": lineal,
     "Cuadráticas": cuadratica,
     "Proporcionalidad inversa": prop_inversa,
+    "Exponencial": exponencial,
+    "Logarítmica": logaritmica,
 }
 
 

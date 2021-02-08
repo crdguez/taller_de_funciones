@@ -61,7 +61,7 @@ def app(funcion) :
     # st.latex("y=ax^2+bx+c")
     st.write(md)
     st.markdown("**Ejemplo:**")
-
+    st.latex(eq)
     d = carac(eq)
 
     col11, col12 = st.beta_columns([1,1])
@@ -72,7 +72,7 @@ def app(funcion) :
             latex(d['exp'])+"$  \n * Corte OX: "+corte_x+ \
             "  \n * Corte OY: $"+latex(d['oy'])+ \
             "$  \n * Dominio: $"+latex(d['dominio'])+"$")
-    
+
     with col12 :
         # Graficamos la función
         st.pyplot(d['fg'])
