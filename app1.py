@@ -8,7 +8,7 @@ from sympy.parsing.latex import parse_latex
 from sympy.plotting.plot import List2DSeries
 from sympy import *
 x, y, z, t = symbols('x y z t')
-from sympy.calculus.util import continuous_domain
+from sympy.calculus.util import continuous_domain, function_range
 
 #init_session()
 #continuous_domain(log(x,2),x,S.Reals)
@@ -22,6 +22,7 @@ def carac(exp) :
     d['oy']=exp.subs(x,0)
     #d['dominio']=S.Reals - singularities(exp,x)
     d['dominio']=continuous_domain(exp,x,S.Reals)
+    d['rango']=function_range(exp,x,S.Reals)
     d['fg']= plot_implicit(Eq(y,exp), (x, -10, 10), (y, -10, 10))._backend.fig
     d['poly']=exp.is_polynomial()
 
