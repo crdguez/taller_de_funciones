@@ -77,7 +77,8 @@ def app(funcion) :
         st.write("**Características**:  \n * Función:  \n     *  $f(x) ="+ \
             latex(d['exp'])+"$  \n * Corte OX: "+corte_x+ \
             "  \n * Corte OY: $"+latex(d['oy'])+ \
-            "$  \n * Dominio: $"+latex(d['dominio'])+"$")
+            "$  \n * Dominio: $"+latex(d['dominio'])+"$ \
+              \n * Recorrido: $"+latex(d['rango'])+"$")
 
     with col12 :
         # Graficamos la función
