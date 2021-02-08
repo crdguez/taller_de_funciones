@@ -9,6 +9,10 @@ from sympy.plotting.plot import List2DSeries
 from sympy import *
 x, y, z, t = symbols('x y z t')
 
+#from sympy.calculus.util import continuous_domain
+#init_session()
+#continuous_domain(log(x,2),x,S.Reals)
+
 def carac(exp) :
     # Devuelve un diccionario con las características de la función f(x)=exp
     d = dict()
