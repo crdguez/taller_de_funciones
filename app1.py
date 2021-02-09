@@ -28,11 +28,11 @@ def carac(exp,tipo) :
 
     # extra
     d['extra'] = dict()
-    d['extra']['0'] = "Nada, de momento"
+    # d['extra']['0'] = "Nada, de momento"
 
     if tipo == 'lineal' :
-        d['extra']['0'] = "Pendiente: " +latex(Poly(exp,x).LC())+" y Ordenada en \
-            el origen: " + latex(Poly(exp,x).TC())
+        # d['extra']['0'] = "Pendiente: " +latex(Poly(exp,x).LC())+" y Ordenada en \
+            # el origen: " + latex(Poly(exp,x).TC())
         d['extra']['pendiente']= "$"+latex(Poly(exp,x).LC())+"$"
         d['extra']['ordenada']= "$"+latex(Poly(exp,x).TC())+"$"
 
@@ -75,17 +75,9 @@ def app(funcion) :
     d = carac(eq, tipo)
 
     st.title(title)
-    st.write(tipo, " --> ", d['extra']['0'])
-
-
-
-    # st.markdown(r"""Las funciones *cuadráticas* son las funciones polinómicas de segundo grado.
-    # Por tanto tienen una expresión de este tipo:""")
-    # st.latex("y=ax^2+bx+c")
     st.write(md)
     st.markdown("**Ejemplo:**")
-    st.latex(eq)
-
+    st.latex("f(x)="+latex(eq))
 
     col11, col12 = st.beta_columns([1,1])
 
