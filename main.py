@@ -16,9 +16,14 @@ def lineal():
     eq = parse_latex(ex).subs('m',m).subs('n',n)
     d=dict()
     d['eq']=eq
+    d['tex']=ex
     d['md']= """Las funciones *lineales* son las funciones polinómicas de primer grado.
     Por tanto tienen una expresión de este tipo:   \n  $"""+"""y=mx+n$"""
     d['title']= 'Funciones Lineales'
+    d['tipo']=lineal.__name__
+    # d['extra']=dict()
+    # d['extra']['pendiente']=m
+    # d['extra']['ordenada']=n
     return d
 
 def cuadratica() :
@@ -31,9 +36,11 @@ def cuadratica() :
     eq = parse_latex(ex).subs('a',a).subs('b',b).subs('c',c)
     d=dict()
     d['eq']=eq
+    d['tex']=ex
     d['md']= """Las funciones *cuadráticas* son las funciones polinómicas de segundo grado.
     Por tanto tienen una expresión de este tipo:   \n  $"""+"""y=ax^2+bx+c$"""
     d['title']= 'Funciones Cuadráticas'
+    d['tipo']=cuadratica.__name__
     return d
 
 def prop_inversa():
@@ -46,9 +53,11 @@ def prop_inversa():
     eq = parse_latex(ex).subs('a',a).subs('b',b).subs('k',k)
     d=dict()
     d['eq']=eq
+    d['tex']=ex
     d['md']= """Las funciones *de proporcionalidad inversa* son las funciones del tipo:
        \n  $"""+r"""a+\frac{k}{x-b}$"""
     d['title']= 'Funciones de proporcionalidad inversa'
+    d['tipo']=prop_inversa.__name__
     return d
 
 def exponencial():
@@ -61,9 +70,11 @@ def exponencial():
     eq = parse_latex(ex).subs('a',a)
     d=dict()
     d['eq']=eq
+    d['tex']=ex
     d['md']= """Las funciones *exponenciales* son las funciones del tipo:
        \n  $"""+r"""a^x$"""
     d['title']= 'Funciones exponenciales'
+    d['tipo']=exponencial.__name__
     return d
 
 def logaritmica():
@@ -76,9 +87,11 @@ def logaritmica():
     eq = log(x,a,evaluate=False).subs('a',a)
     d=dict()
     d['eq']=eq
+    d['tex']=ex.replace('a',latex(eq.args[1]))
     d['md']= """Las funciones *logarítmicas* son las funciones del tipo:
        \n  $"""+r"""\log_{a}x$"""
     d['title']= 'Funciones logarítmicas'
+    d['tipo']=logaritmica.__name__
     return d
 
 PAGES = {

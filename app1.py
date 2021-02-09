@@ -13,7 +13,7 @@ from sympy.calculus.util import continuous_domain, function_range
 #init_session()
 #continuous_domain(log(x,2),x,S.Reals)
 
-def carac(exp) :
+def carac(exp,tipo) :
     # Devuelve un diccionario con las características de la función f(x)=exp
     d = dict()
     d['exp']=exp
@@ -25,6 +25,16 @@ def carac(exp) :
     d['rango']=function_range(exp,x,S.Reals)
     d['fg']= plot_implicit(Eq(y,exp), (x, -10, 10), (y, -10, 10))._backend.fig
     d['poly']=exp.is_polynomial()
+
+    # extra
+    d['extra'] = dict()
+    d['extra']['0'] = "Nada, de momento"
+
+    if tipo == 'lineal' :
+        d['extra']['0'] = "Pendiente: " +latex(Poly(exp,x).LC())+" y Ordenada en \
+            el origen: " + latex(Poly(exp,x).TC())
+        d['extra']['pendiente']= "$"+latex(Poly(exp,x).LC())+"$"
+        d['extra']['ordenada']= "$"+latex(Poly(exp,x).TC())+"$"
 
     return d
 
@@ -59,26 +69,36 @@ def dom_rec(eq,cte,var=x) :
     return [fg,puntos, txt]
 
 def app(funcion) :
-    eq, md, title =funcion['eq'],funcion['md'],funcion['title']
+    ex, eq, md, title = funcion['tex'],funcion['eq'],funcion['md'],funcion['title']
+    tipo = funcion['tipo']
+
+    d = carac(eq, tipo)
 
     st.title(title)
+    st.write(tipo, " --> ", d['extra']['0'])
+
+
+
     # st.markdown(r"""Las funciones *cuadráticas* son las funciones polinómicas de segundo grado.
     # Por tanto tienen una expresión de este tipo:""")
     # st.latex("y=ax^2+bx+c")
     st.write(md)
     st.markdown("**Ejemplo:**")
     st.latex(eq)
-    d = carac(eq)
+
 
     col11, col12 = st.beta_columns([1,1])
 
     with col11 :
         corte_x = ' No tiene' if len(list(solveset(eq, domain=S.Reals))) == 0 else "$"+", ".join(map(latex,d['raices']))+"$"
-        st.write("**Características**:  \n * Función:  \n     *  $f(x) ="+ \
-            latex(d['exp'])+"$  \n * Corte OX: "+corte_x+ \
+        st.write("**Características**:  \n  $f(x) ="+ \
+            latex(d['exp'])+"$   \n * Corte OX: "+corte_x+ \
             "  \n * Corte OY: $"+latex(d['oy'])+ \
             "$  \n * Dominio: $"+latex(d['dominio'])+"$ \
               \n * Recorrido: $"+latex(d['rango'])+"$")
+
+        for k,v in d['extra'].items() :
+            st.markdown(k + r' $\to$ ' + v)
 
     with col12 :
         # Graficamos la función
