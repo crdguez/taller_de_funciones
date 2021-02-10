@@ -104,9 +104,10 @@ def app(funcion) :
     col31, col32 = st.beta_columns(2)
     with col31 :
         lista=np.arange(-2,2.2,0.2)
+        lista=np.linspace(-2,2,40)
         fu=lambdify(x,eq)
         # st.table(pd.DataFrame({'x':lista,'y':fu(lista)},index=False))
-        st.dataframe(pd.DataFrame({'x':lista,'y':fu(lista)}),None,200)
+        st.dataframe(pd.DataFrame({'x':lista,'y':fu(lista)}),400,400)
 
     with col32:
         p3 = plot_implicit(Eq(y,eq), (x, -3, 3), (y, -10, 10),line_color='yellow')

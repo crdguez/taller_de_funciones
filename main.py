@@ -108,6 +108,7 @@ FUNCIONES = {
 }
 
 
+st.set_page_config(layout='wide')
 st.sidebar.title('Índice')
 selection = st.sidebar.radio("Selecciona:", list(PAGES.keys()),index=0)
 
