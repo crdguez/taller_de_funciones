@@ -96,6 +96,25 @@ def app(funcion) :
         # Graficamos la función
         st.pyplot(d['fg'])
 
+    st.subheader('Estudiando su forma')
+
+    st.write('Vamos a hacer una **tabla de valores** y representamos \
+        los puntos del plano correspondientes:')
+
+    col31, col32 = st.beta_columns(2)
+    with col31 :
+        lista=np.arange(-2,2.2,0.2)
+        fu=lambdify(x,eq)
+        # st.table(pd.DataFrame({'x':lista,'y':fu(lista)},index=False))
+        st.dataframe(pd.DataFrame({'x':lista,'y':fu(lista)}),None,200)
+
+    with col32:
+        p3 = plot_implicit(Eq(y,eq), (x, -3, 3), (y, -10, 10),line_color='yellow')
+        fig = p3._backend.fig
+        plt.scatter(lista,fu(lista))
+        st.pyplot(fig)
+
+
 
     st.subheader('Estudiando el dominio y el recorrido')
 
