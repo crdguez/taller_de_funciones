@@ -101,13 +101,17 @@ def app(funcion) :
     st.write('Vamos a hacer una **tabla de valores** y representamos \
         los puntos del plano correspondientes:')
 
+    p=st.select_slider('Número de puntos', options=[10,20,50])
     col31, col32 = st.beta_columns(2)
+
     with col31 :
         lista=np.arange(-2,2.2,0.2)
-        lista=np.linspace(-2,2,40)
+        lista=np.linspace(-2,2,p)
         fu=lambdify(x,eq)
         # st.table(pd.DataFrame({'x':lista,'y':fu(lista)},index=False))
-        st.dataframe(pd.DataFrame({'x':lista,'y':fu(lista)}),400,400)
+        # st.dataframe(pd.DataFrame({'x':lista,'y':fu(lista)}),width=500,height=400)
+        st.dataframe(pd.DataFrame({'x':lista,'y':fu(lista)}))
+
 
     with col32:
         p3 = plot_implicit(Eq(y,eq), (x, -3, 3), (y, -10, 10),line_color='yellow')
