@@ -79,6 +79,16 @@ def app(funcion) :
     st.markdown("**Ejemplo:**")
     st.latex("f(x)="+latex(eq))
 
+    # graficamos la Pendiente
+
+    x1, x2 = 5, 8
+    p2 = plot(eq)
+    p2.append(List2DSeries([x1,x2,x2],[eq.subs(x,x1), eq.subs(x,x1),eq.subs(x,x2)]))
+    p2.show()
+    fg=p2._backend.fig
+    plt.scatter([0, x1,x2],[eq.subs(x,0),eq.subs(x,x1),eq.subs(x,x2)])
+    st.pyplot(fg)
+
     col11, col12 = st.beta_columns([1,1])
 
     with col11 :
