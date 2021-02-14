@@ -81,12 +81,26 @@ def app(funcion) :
 
     # graficamos la Pendiente
 
-    x1, x2 = 5, 8
+    x0, x1 = 5, 8
+    lista=[x0,x1]
+    lista.append(0)
+    imagen=lambdify(x,eq)(np.array(lista))
     p2 = plot(eq)
-    p2.append(List2DSeries([x1,x2,x2],[eq.subs(x,x1), eq.subs(x,x1),eq.subs(x,x2)]))
+    p2.append(List2DSeries([x0,x1,x1],[imagen[0],imagen[0],imagen[1]]))
     p2.show()
+    [plt.text(i,eq.subs(x,i)+1,"$\left("+latex(i)+r','+latex(eq.subs(x,i))+r"\right)$") for i in lista]
+    plt.text((x0+x1)/2,imagen[0],"$"+latex(x1-x0)+"$")
+    plt.text(x1,imagen[0],r"$m=\frac{"+latex(S(imagen[1]-imagen[0]))+r"}{"+latex(x1-x0)+r"}="+latex((S(imagen[1]-imagen[0]))/(x1-x0))+"$")
+    # plt.text(x1,(imagen[1]+imagen[0])/2,"$"+latex(imagen[1]-imagen[0])+"$")
+    plt.text(x1,(imagen[1]+imagen[0])/2,"$"+latex(S(imagen[1]-imagen[0]))+"$")
+
     fg=p2._backend.fig
-    plt.scatter([0, x1,x2],[eq.subs(x,0),eq.subs(x,x1),eq.subs(x,x2)])
+    # plt.scatter(lista,lambdify(x,eq)(np.array(lista))
+    plt.scatter(lista,imagen)
+
+    # plt.text(x0+2,eq.subs(x,x0)+1,'a ver')
+    # r'$\left('+latex(x0)+r","ĺatex(eq.subs(x,x0))+r"\right)$"
+
     st.pyplot(fg)
 
     col11, col12 = st.beta_columns([1,1])
