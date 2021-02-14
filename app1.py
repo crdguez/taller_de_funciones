@@ -81,7 +81,9 @@ def app(funcion) :
 
     # graficamos la Pendiente
 
-    x0, x1 = 5, 8
+    x0 = int(st.select_slider('x0', options=[2,4,6]))
+    x1 = int(st.select_slider('x1', options=[8,10,12]))
+
     lista=[x0,x1]
     lista.append(0)
     imagen=lambdify(x,eq)(np.array(lista))
