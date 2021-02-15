@@ -36,7 +36,31 @@ def carac(exp,tipo) :
         d['extra']['pendiente']= "$"+latex(Poly(exp,x).LC())+"$"
         d['extra']['ordenada']= "$"+latex(Poly(exp,x).TC())+"$"
 
+
     return d
+
+def pendiente_ordenada(eq, x0, x1) :
+    d = dict()
+    lista=[x0,x1]
+    lista.append(0)
+    imagen=lambdify(x,eq)(np.array(lista))
+    p2 = plot(eq)
+    p2.append(List2DSeries([x0,x1,x1],[imagen[0],imagen[0],imagen[1]]))
+    p2.show()
+    [plt.text(i,eq.subs(x,i)+1,"$\left("+latex(i)+r','+latex(eq.subs(x,i))+r"\right)$") for i in lista]
+    plt.text((x0+x1)/2,imagen[0],"$"+latex(x1-x0)+"$")
+    plt.text(x1,imagen[0],r"$m=\frac{"+latex(S(imagen[1]-imagen[0]))+r"}{"+latex(x1-x0)+r"}="+latex((S(imagen[1]-imagen[0]))/(x1-x0))+"$")
+    plt.text(x1,(imagen[1]+imagen[0])/2,"$"+latex(S(imagen[1]-imagen[0]))+"$")
+    txt = "Observa que dados dos puntos de la gráfica, la razón entre \
+    la variación de las **y** y la variación de las **x** se mantiene constante."
+    plt.scatter(lista,imagen)
+
+    d['fg']=p2._backend.fig
+    d['md1']=txt
+
+    return d
+
+
 
 def dom_rec(eq,cte,var=x) :
     # Devuelve la gráica de la ecuación y la recta, y los puntos de corte con la recta var=ctw
@@ -79,31 +103,14 @@ def app(funcion) :
     st.markdown("**Ejemplo:**")
     st.latex("f(x)="+latex(eq))
 
-    # graficamos la Pendiente
-
-    x0 = int(st.select_slider('x0', options=[2,4,6]))
-    x1 = int(st.select_slider('x1', options=[8,10,12]))
-
-    lista=[x0,x1]
-    lista.append(0)
-    imagen=lambdify(x,eq)(np.array(lista))
-    p2 = plot(eq)
-    p2.append(List2DSeries([x0,x1,x1],[imagen[0],imagen[0],imagen[1]]))
-    p2.show()
-    [plt.text(i,eq.subs(x,i)+1,"$\left("+latex(i)+r','+latex(eq.subs(x,i))+r"\right)$") for i in lista]
-    plt.text((x0+x1)/2,imagen[0],"$"+latex(x1-x0)+"$")
-    plt.text(x1,imagen[0],r"$m=\frac{"+latex(S(imagen[1]-imagen[0]))+r"}{"+latex(x1-x0)+r"}="+latex((S(imagen[1]-imagen[0]))/(x1-x0))+"$")
-    # plt.text(x1,(imagen[1]+imagen[0])/2,"$"+latex(imagen[1]-imagen[0])+"$")
-    plt.text(x1,(imagen[1]+imagen[0])/2,"$"+latex(S(imagen[1]-imagen[0]))+"$")
-
-    fg=p2._backend.fig
-    # plt.scatter(lista,lambdify(x,eq)(np.array(lista))
-    plt.scatter(lista,imagen)
-
-    # plt.text(x0+2,eq.subs(x,x0)+1,'a ver')
-    # r'$\left('+latex(x0)+r","ĺatex(eq.subs(x,x0))+r"\right)$"
-
-    st.pyplot(fg)
+    if tipo == 'lineal' :
+        # graficamos la Pendiente
+        st.subheader('Estudiando la pendiente y la ordenada')
+        x0 = int(st.select_slider('x0', options=[2,4,6]))
+        x1 = int(st.select_slider('x1', options=[8,10,12]))
+        d1=pendiente_ordenada(eq,x0,x1)
+        st.pyplot(d1['fg'])
+        st.markdown(d1['md1'])
 
     col11, col12 = st.beta_columns([1,1])
 
