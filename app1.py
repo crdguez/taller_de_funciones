@@ -60,6 +60,20 @@ def pendiente_ordenada(eq, x0, x1) :
 
     return d
 
+def max_min(eq) :
+    d = dict()
+    lista=solve(eq.diff())
+    imagen=lambdify(x,eq)(np.array(lista))
+    p2 = plot_implicit(Eq(y,eq))
+    p2.show()
+    [plt.text(i,eq.subs(x,i)+1,"$\left("+latex(i)+r','+latex(eq.subs(x,i))+r"\right)$") for i in lista]
+    plt.scatter(lista,imagen)
+
+    d['fg']=p2._backend.fig
+    d['maxmin']=lista
+
+    return d
+
 
 
 def dom_rec(eq,cte,var=x) :
@@ -111,6 +125,20 @@ def app(funcion) :
         d1=pendiente_ordenada(eq,x0,x1)
         st.pyplot(d1['fg'])
         st.markdown(d1['md1'])
+
+    if tipo == 'cuadratica' :
+        # graficamos la Pendiente
+        st.subheader('Estudiando el vértice de la función cuadrática')
+        d2=max_min(eq)
+        st.pyplot(d2['fg'])
+        # st.markdown(d1['md1'])
+        txt = "Observa que el **vértice** tiene de coordenadas $\\left(\\frac{-b}{2a},f\\left(\\frac{-b}{2a}\\right)\\right)$: \
+           \n  * Primera coordenada: \
+            $\\frac{-b}{2a}=\\frac{"+latex(-1*Poly(eq,x).all_coeffs()[1])+"}{2\\cdot\\left("+latex(Poly(eq,x).all_coeffs()[0])+"\\right)}="
+        txt += latex(-1*Poly(eq,x).all_coeffs()[1]/(2*Poly(eq,x).all_coeffs()[0]))+"$."
+        txt += "  \n * Segunda coordenada:  \n"
+        txt += "$"+latex(eq.subs(x,UnevaluatedExpr(d2['maxmin'][0])))+"="+latex(eq.subs(x,d2['maxmin'][0]))+"$"
+        st.info(txt)
 
     col11, col12 = st.beta_columns([1,1])
 
