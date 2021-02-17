@@ -84,7 +84,7 @@ def dom_rec(eq,cte,var=x) :
     # Devuelve la gráica de la ecuación y la recta, y los puntos de corte con la recta var=ctw
     p2 = plot_implicit(Eq(y,eq), (x, -5, 5), (y,-10, 10), show=False)
     p2.extend(plot_implicit(Eq(var,cte), (x, -5, 5), (y, -10, 10), show=False))
-    if eq.is_polynomial() and (degree(eq, gen=x) == 1) :
+    if eq.is_polynomial() and (degree(eq, gen=x) <= 1) :
         # vx, vy =list(solve([Eq(y,eq),Eq(x,v)]).values())
         puntos=[]
         puntos.append(solve([Eq(y,eq),Eq(var,cte)]))
@@ -170,18 +170,22 @@ def app(funcion) :
     col31, col32 = st.beta_columns(2)
 
     with col31 :
-        lista=np.arange(-2,2.2,0.2)
         lista=np.linspace(-2,2,p)
-        fu=lambdify(x,eq)
-        # st.table(pd.DataFrame({'x':lista,'y':fu(lista)},index=False))
-        # st.dataframe(pd.DataFrame({'x':lista,'y':fu(lista)}),width=500,height=400)
-        st.dataframe(pd.DataFrame({'x':lista,'y':fu(lista)}))
+        if tipo == 'lineal' and poly(d['exp'],x).degree() == 0 :
+        # if tipo == 'lineal'  :
+            lista2 = [eq for i in lista]
+        else :
+            lista2 = lambdify(x,eq)(lista)
+
+
+
+        st.dataframe(pd.DataFrame({'x':lista,'y':lista2}))
 
 
     with col32:
         p3 = plot_implicit(Eq(y,eq), (x, -3, 3), (y, -10, 10),line_color='yellow')
         fig = p3._backend.fig
-        plt.scatter(lista,fu(lista))
+        plt.scatter(lista,lista2)
         st.pyplot(fig)
 
 
