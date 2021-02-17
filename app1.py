@@ -43,8 +43,11 @@ def pendiente_ordenada(eq, x0, x1) :
     d = dict()
     lista=[x0,x1]
     lista.append(0)
-    imagen=lambdify(x,eq)(np.array(lista))
-    p2 = plot(eq)
+    if Poly(eq,x).degree() == 0 :
+        imagen=[eq,eq,eq]
+    else:
+        imagen=lambdify(x,eq)(np.array(lista))
+    p2 = plot_implicit(Eq(y,eq),(x, -(x1+1), x1+1),(y,-abs(imagen[1])-1,abs(imagen[1])+1),show=False)
     p2.append(List2DSeries([x0,x1,x1],[imagen[0],imagen[0],imagen[1]]))
     p2.show()
     [plt.text(i,eq.subs(x,i)+1,"$\left("+latex(i)+r','+latex(eq.subs(x,i))+r"\right)$") for i in lista]
@@ -61,6 +64,7 @@ def pendiente_ordenada(eq, x0, x1) :
     return d
 
 def max_min(eq) :
+    # devuelve los máximos y mínimos de una función
     d = dict()
     lista=solve(eq.diff())
     imagen=lambdify(x,eq)(np.array(lista))
