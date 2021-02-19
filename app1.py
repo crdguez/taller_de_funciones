@@ -83,32 +83,74 @@ def max_min(eq) :
 def dom_rec(eq,cte,var=x) :
     # Devuelve la gráica de la ecuación y la recta, y los puntos de corte con la recta var=ctw
     p2 = plot_implicit(Eq(y,eq), (x, -5, 5), (y,-10, 10), show=False)
-    p2.extend(plot_implicit(Eq(var,cte), (x, -5, 5), (y, -10, 10), show=False))
-    if eq.is_polynomial() and (degree(eq, gen=x) <= 1) :
-        # vx, vy =list(solve([Eq(y,eq),Eq(x,v)]).values())
-        puntos=[]
-        puntos.append(solve([Eq(y,eq),Eq(var,cte)]))
+    p2.extend(plot_implicit(Eq(var,cte), (x, -5, 5), (y, -10, 10), show=False, line_color='red'))
+    puntos = []
+    if eq.is_polynomial() and (degree(eq, gen=x) == 0) and (var == y):
+        p2.show()
+        fg =  p2._backend.fig
+        txt = "Función constante: $"+latex(cte)
+        txt += "\\in Im(f)$" if eq==cte else "\\notin Im(f)$"
+
+
     else :
-        # vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
-        puntos=solve([Eq(y,eq),Eq(var,cte)])
+        if eq.is_polynomial() and (degree(eq, gen=x) <= 1) :
+            # vx, vy =list(solve([Eq(y,eq),Eq(x,v)]).values())
+            puntos=[]
+            puntos.append(solve([Eq(y,eq),Eq(var,cte)]))
+        else :
+            # vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
+            puntos=solve([Eq(y,eq),Eq(var,cte)])
+            st.write(puntos)
 
-    p2.show()
-    fg =  p2._backend.fig
-    txt = ""
+        p2.show()
+        fg =  p2._backend.fig
+        txt = ""
 
-    for p in list(puntos) :
-        # vx,vy= p.values()
-        if p[x].is_real and p[y].is_real:
-            vx = p[x]
-            vy = p[y]
-            plt.scatter([vx],[vy])
-            plt.text(vx+0.2,vy+0.5,"$\left("""+latex(vx)+r','+latex(vy)+r"\right)$")
-            # p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
+        for p in list(puntos) :
+            # vx,vy= p.values()
+            if p[x].is_real and p[y].is_real:
+                vx = p[x]
+                vy = p[y]
+                plt.scatter([vx],[vy])
+                plt.text(vx+0.2,vy+0.5,"$\left("""+latex(vx)+r','+latex(vy)+r"\right)$")
+                # p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
 
-            txt += """  \n El punto $\left("""+latex(vx)+r','+latex(vy)+r"\right)$"+""" pertenece a la gráfica. Por
-            tanto:  \n * $"""+latex(vx)+""" \in Dom(f)$ y  \n * $"""+latex(vy)+""" \in Im(f)$   \n """
+                txt += """  \n El punto $\left("""+latex(vx)+r','+latex(vy)+r"\right)$"+""" pertenece a la gráfica. Por
+                tanto:  \n * $"""+latex(vx)+""" \in Dom(f)$ y  \n * $"""+latex(vy)+""" \in Im(f)$   \n """
 
     return [fg,puntos, txt]
+
+# def dom_rec(eq,cte,var=x) :
+#     # Devuelve la gráica de la ecuación y la recta, y los puntos de corte con la recta var=ctw
+#     p2 = plot_implicit(Eq(y,eq), (x, -5, 5), (y,-10, 10), show=False)
+#     p2.extend(plot_implicit(Eq(var,cte), (x, -5, 5), (y, -10, 10), show=False))
+#     if eq.is_polynomial() and (degree(eq, gen=x) <= 1) :
+#         # vx, vy =list(solve([Eq(y,eq),Eq(x,v)]).values())
+#         puntos=[]
+#         puntos.append(solve([Eq(y,eq),Eq(var,cte)]))
+#     else :
+#         # vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
+#         puntos=solve([Eq(y,eq),Eq(var,cte)])
+#         st.write(puntos)
+#
+#     p2.show()
+#     fg =  p2._backend.fig
+#     txt = ""
+#
+#     for p in list(puntos) :
+#         # vx,vy= p.values()
+#         if p[x].is_real and p[y].is_real:
+#             vx = p[x]
+#             vy = p[y]
+#             plt.scatter([vx],[vy])
+#             plt.text(vx+0.2,vy+0.5,"$\left("""+latex(vx)+r','+latex(vy)+r"\right)$")
+#             # p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
+#
+#             txt += """  \n El punto $\left("""+latex(vx)+r','+latex(vy)+r"\right)$"+""" pertenece a la gráfica. Por
+#             tanto:  \n * $"""+latex(vx)+""" \in Dom(f)$ y  \n * $"""+latex(vy)+""" \in Im(f)$   \n """
+#
+#     return [fg,puntos, txt]
+
 
 def app(funcion) :
     ex, eq, md, title = funcion['tex'],funcion['eq'],funcion['md'],funcion['title']
