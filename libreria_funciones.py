@@ -29,8 +29,11 @@ def carac(exp,tipo) :
     if tipo == 'lineal' :
         # d['extra']['0'] = "Pendiente: " +latex(Poly(exp,x).LC())+" y Ordenada en \
             # el origen: " + latex(Poly(exp,x).TC())
-        d['extra']['pendiente']= "$"+latex(Poly(exp,x).LC())+"$"
-        d['extra']['ordenada']= "$"+latex(Poly(exp,x).TC())+"$"
+        # d['extra']['pendiente']= "$"+latex(Poly(exp,x).LC())+"$"
+        # d['extra']['ordenada']= "$"+latex(Poly(exp,x).TC())+"$"
+        d['extra']['pendiente']= Poly(exp,x).LC()
+        d['extra']['ordenada']= Poly(exp,x).TC()
+
 
 
     return d
@@ -75,7 +78,7 @@ def max_min(eq) :
     return d
 
 def dom_rec(eq,cte,var=x) :
-    # Devuelve la gráica de la ecuación y la recta, y los puntos de corte con la recta var=ctw
+    # Devuelve la gráfica de la ecuación y la recta, y los puntos de corte con la recta var=ctw
     p2 = plot_implicit(Eq(y,eq), (x, -5, 5), (y,-10, 10), show=False)
     p2.extend(plot_implicit(Eq(var,cte), (x, -5, 5), (y, -10, 10), show=False, line_color='red'))
     puntos = []
@@ -94,7 +97,7 @@ def dom_rec(eq,cte,var=x) :
         else :
             # vx, vy =list(solve([Eq(y,eq),Eq(x,v)])[0].values())
             puntos=solve([Eq(y,eq),Eq(var,cte)])
-            st.write(puntos)
+            # st.write(puntos)
 
         p2.show()
         fg =  p2._backend.fig

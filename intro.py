@@ -31,9 +31,9 @@ def app() :
     st.image('./instrucciones.gif')
 
     st.subheader('Sobre el proyecto')
-    st.markdown('- Autor: *Carlos Rodríguez*  \n - [Repo *Github*](https://github.com/crdguez/probando_streamlit)' )
+    st.markdown('- Autor: *Carlos Rodríguez*  \n -   :exclamation: [Repo *Github*](https://github.com/crdguez/probando_streamlit)' )
     st.subheader('Licencia')
     st.write('Tanto el código como la aplicación se publican con **licencia libre**. \
-      \n * En caso de uso, se agradece la atribución \
+      \n * En caso de uso, se agradece la atribución :+1: \
         \n * Así mismo, se agradecen sugerencias y contribuciones \
         a través de *pull requests* en el repositorio')

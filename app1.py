@@ -1,28 +1,29 @@
 from libreria_funciones import *
 
 def app(funcion) :
-    ex, eq, md, title = funcion['tex'],funcion['eq'],funcion['md'],funcion['title']
-    tipo = funcion['tipo']
+    ex, eq, md, title, tipo = funcion['tex'],funcion['eq'],funcion['md'],funcion['title'],funcion['tipo']
 
     d = carac(eq, tipo)
 
     st.title(title)
-    st.write(md)
+    st.info(md)
     st.markdown("**Ejemplo:**")
-    st.latex("f(x)="+latex(eq))
-
-    col11, col12 = st.beta_columns([1,1])
+    st.latex("y="+latex(eq))
+    st.warning(":point_left: :point_left: :point_left: Puedes cambiar de ejemplo modificando los **parámetros** de la función desde el **menú desplegable de la izquierda**")
+    st.write(":unlock: Vamos a ver cómo se comporta la función ejemplo:")
+    col11, col12 = st.beta_columns([1,2])
 
     with col11 :
         corte_x = ' No tiene' if len(list(solveset(eq, domain=S.Reals))) == 0 else "$"+", ".join(map(latex,d['raices']))+"$"
-        st.write("**Características**:  \n  $f(x) ="+ \
+        txt_carac = "**Características de ** $y="+ \
             latex(d['exp'])+"$   \n * Corte OX: "+corte_x+ \
             "  \n * Corte OY: $"+latex(d['oy'])+ \
             "$  \n * Dominio: $"+latex(d['dominio'])+"$ \
-              \n * Recorrido: $"+latex(d['rango'])+"$")
-
+              \n * Recorrido: $"+latex(d['rango'])+"$"
         for k,v in d['extra'].items() :
-            st.markdown(k + r' $\to$ ' + v)
+            txt_carac +="  \n * "+str(k) + r': $'+ latex(v) +"$ "
+            # st.markdown(k + r' $\to$ ' + v)
+        st.write(txt_carac)
 
     with col12 :
         # Graficamos la función
@@ -36,10 +37,11 @@ def app(funcion) :
     st.write('Vamos a hacer una **tabla de valores** y representamos \
         los puntos del plano correspondientes:')
 
-    p=st.select_slider('Número de puntos', options=[10,20,50])
-    col31, col32 = st.beta_columns(2)
+    p=st.select_slider('Selecciona el número de puntos que se representarán', options=[10,20,50])
+    col31, col32 = st.beta_columns([1,3])
 
     with col31 :
+        st.write("Dando valores a la variable *x* y sustituyendo en la expresión "+latex(d['exp'])+" obtenemos los valores de la *y*:")
         lista=np.linspace(-2,2,p)
         if tipo == 'lineal' and poly(d['exp'],x).degree() == 0 :
         # if tipo == 'lineal'  :
