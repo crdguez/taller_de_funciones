@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -56,6 +56,21 @@ def pendiente_ordenada(eq, x0, x1) :
 
     d['fg']=p2._backend.fig
     d['md1']=txt
+
+    return d
+
+def max_min(eq) :
+    # devuelve los máximos y mínimos de una función
+    d = dict()
+    lista=solve(eq.diff())
+    imagen=lambdify(x,eq)(np.array(lista))
+    p2 = plot_implicit(Eq(y,eq))
+    p2.show()
+    [plt.text(i,eq.subs(x,i)+1,"$\left("+latex(i)+r','+latex(eq.subs(x,i))+r"\right)$") for i in lista]
+    plt.scatter(lista,imagen)
+
+    d['fg']=p2._backend.fig
+    d['maxmin']=lista
 
     return d
 

@@ -1,10 +1,16 @@
-# app2.py
+# intro.py
 import streamlit as st
 import streamlit.components.v1 as components
 from PIL import Image
 
 def app() :
     st.title('Laboratorio de Funciones')
+    # image = Image.open('img/parabolas_red.jpg')
+    # st.image(image, caption='Photo by Ricardo Gomez Angel', use_column_width=True)
+    image = Image.open('img/parabolas2_red.jpg')
+    st.image(image, caption='foto de Johannes Groll (https://unsplash.com/photos/mrIaqKh9050)', use_column_width=False)
+
+    # Photo by Johannes Groll on Unsplash
     st.write('EL siguiente material es un conjunto de \
     manipulables para el **estudio de las funciones**.   ',\
     '  \n El material está pensado para niveles de **4ºESO** o **primero de Bachillerato**.')

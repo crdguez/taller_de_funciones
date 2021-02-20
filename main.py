@@ -1,6 +1,8 @@
-import app1
-import app2
+from libreria_funciones import *
 import streamlit as st
+import app1
+import intro
+
 import numpy as np
 from sympy.parsing.latex import parse_latex
 from sympy import *
@@ -95,7 +97,7 @@ def logaritmica():
     return d
 
 PAGES = {
-    "Introducción": app2,
+    "Introducción": intro,
     "Funciones": app1,
 }
 
@@ -108,7 +110,10 @@ FUNCIONES = {
 }
 
 
-st.set_page_config(layout='wide')
+st.set_page_config(
+    page_title='Laboratorio de funciones',
+    page_icon="🧊",
+    layout='wide')
 st.sidebar.title('Índice')
 selection = st.sidebar.radio("Selecciona:", list(PAGES.keys()),index=0)
 
@@ -117,7 +122,7 @@ if selection == list(PAGES.keys())[1] :
     tipo = st.sidebar.radio("Tipo de función:", list(FUNCIONES.keys()),index=1)
     app1.app(FUNCIONES[tipo]())
 else :
-    app2.app()
+    intro.app()
 
 # page = PAGES[selection]
 # page.app()
