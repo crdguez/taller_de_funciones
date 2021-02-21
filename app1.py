@@ -32,16 +32,20 @@ def app(funcion) :
 
     #Estudio de la forma de la función
 
-    st.subheader('Estudiando su forma')
+    st.subheader('Estudiando la forma de la gráfica de $y='+latex(eq)+"$")
 
     st.write('Vamos a hacer una **tabla de valores** y representamos \
         los puntos del plano correspondientes:')
 
-    p=st.select_slider('Selecciona el número de puntos que se representarán', options=[10,20,50])
+
+    # p=st.select_slider('Selecciona el número de puntos que se representarán', options=[10,20,50])
+    p=st.selectbox('Selecciona el número de puntos que se representarán', (10,20,50))
+    st.write("Dando valores a la variable *x* y sustituyendo en la expresión $"+latex(d['exp'])+"$ obtenemos los valores de la *y*:")
+
     col31, col32 = st.beta_columns([1,3])
 
     with col31 :
-        st.write("Dando valores a la variable *x* y sustituyendo en la expresión "+latex(d['exp'])+" obtenemos los valores de la *y*:")
+
         lista=np.linspace(-2,2,p)
         if tipo == 'lineal' and poly(d['exp'],x).degree() == 0 :
         # if tipo == 'lineal'  :
@@ -50,7 +54,7 @@ def app(funcion) :
             lista2 = lambdify(x,eq)(lista)
         st.dataframe(pd.DataFrame({'x':lista,'y':lista2}))
 
-    with col32:
+    with col32 :
         p3 = plot_implicit(Eq(y,eq), (x, -3, 3), (y, -10, 10),line_color='yellow')
         fig = p3._backend.fig
         plt.scatter(lista,lista2)
@@ -59,19 +63,24 @@ def app(funcion) :
 
     # Estudio del dominio y el Recorrido
 
-    st.subheader('Estudiando el dominio y el recorrido')
+    st.subheader('Estudiando el dominio y recorrido de $y='+latex(eq)+"$")
 
-    col21, col22, col23 = st.beta_columns(3)
+    st.write("Selecciona entre dominio y recorrido y el valor de la x / y a estudiar:")
+
+    col21, col22= st.beta_columns([1,4])
     with col21 :
-        st.latex("f(x)="+latex(eq))
-    with col22 :
         var=y if st.radio('',('Dominio','Recorrido')) == 'Recorrido' else x
-    with col23 :
         cte = st.select_slider(str(var),options=list(np.arange(-3,3.25,0.25)),value=1)
+        fg, puntos, txt = dom_rec(eq,cte,var)
 
-    fg, puntos, txt = dom_rec(eq,cte,var)
-    st.pyplot(fg)
+
+    with col22 :
+        st.pyplot(fg)
+
     st.markdown(txt)
+
+
+
 
 
     #Estudio de la función en cuestión
