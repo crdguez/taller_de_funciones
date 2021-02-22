@@ -1,8 +1,8 @@
 from libreria_funciones import *
 import streamlit as st
-import app1
+import estudio
 import intro
-
+import actividades
 import numpy as np
 from sympy.parsing.latex import parse_latex
 from sympy import *
@@ -49,7 +49,8 @@ def cuadratica() :
     d['eq']=eq
     d['tex']=ex
     d['md']= """Las funciones *cuadráticas* son las funciones polinómicas de segundo grado.
-        \n * :key: Tienen una **expresión general** de este tipo: $"""+"""y=ax^2+bx+c$"""
+        \n * :key: Tienen una **expresión general** de este tipo: $"""+"""y=ax^2+bx+c$
+        \n * Su representación gráfica es una **curva parabólica**"""
     d['title']= 'Funciones Cuadráticas'
     d['tipo']=cuadratica.__name__
     return d
@@ -115,7 +116,8 @@ def logaritmica():
 
 PAGES = {
     "Introducción": intro,
-    "Estudio de Funciones": app1,
+    "Estudio de Funciones": estudio,
+    "Actividades": actividades,
 }
 
 FUNCIONES = {
@@ -138,16 +140,10 @@ if selection == list(PAGES.keys())[1] :
     # Aquí le pasaré la función
     tipo = st.sidebar.radio("Tipo de función:", list(FUNCIONES.keys()),index=1)
 
-    app1.app(FUNCIONES[tipo]())
+    estudio.app(FUNCIONES[tipo]())
+
+elif selection == list(PAGES.keys())[2] :
+    actividades.app()
 
 else :
     intro.app()
-
-# page = PAGES[selection]
-# page.app()
-
-
-
-# st.sidebar.subheader('Sobre el proyecto')
-# st.sidebar.markdown('- Autor: *Carlos Rodríguez*')
-# st.sidebar.markdown('- [Repo *Github*](https://github.com/crdguez/probando_streamlit)')

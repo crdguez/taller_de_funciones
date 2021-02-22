@@ -46,19 +46,22 @@ def app(funcion) :
 
     with col31 :
 
-        lista=np.linspace(-2,2,p)
+        lista=np.linspace(0.0001,2,p) if tipo == 'logaritmica' else np.linspace(-2,2,p)
         if tipo == 'lineal' and poly(d['exp'],x).degree() == 0 :
         # if tipo == 'lineal'  :
             lista2 = [eq for i in lista]
         else :
-            lista2 = lambdify(x,eq)(lista)
+            # lista2 = lambdify(x,eq)(lista)
+            lista2 = [eq.subs(x,i) for i in lista]
         st.dataframe(pd.DataFrame({'x':lista,'y':lista2}))
+
 
     with col32 :
         p3 = plot_implicit(Eq(y,eq), (x, -3, 3), (y, -10, 10),line_color='yellow')
         fig = p3._backend.fig
         plt.scatter(lista,lista2)
         st.pyplot(fig)
+
 
 
     # Estudio del dominio y el Recorrido
