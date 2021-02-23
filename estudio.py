@@ -90,16 +90,20 @@ def app(funcion) :
 
     if tipo == 'lineal' :
         # graficamos la Pendiente
-        st.subheader('Estudiando la pendiente y la ordenada')
-        x0 = int(st.select_slider('x0', options=[2,4,6]))
-        x1 = int(st.select_slider('x1', options=[8,10,12]))
-        d1=pendiente_ordenada(eq,x0,x1)
-        st.pyplot(d1['fg'])
-        st.markdown(d1['md1'])
+        st.subheader('Estudiando la pendiente y la ordenada de $y='+latex(eq)+"$")
+        st.write('Modifica los deslizadores para seleccionar puntos diferentes de la recta:')
+        col31, col32 = st.beta_columns([1,4])
+        with col31 :
+            x0 = int(st.select_slider('x0', options=[2,4,6]))
+            x1 = int(st.select_slider('x1', options=[8,10,12]))
+            d1=pendiente_ordenada(eq,x0,x1)
+        with col32 :
+            st.pyplot(d1['fg'])
+        st.info(d1['md1'])
 
     if tipo == 'cuadratica' :
         # graficamos la Pendiente
-        st.subheader('Estudiando el vértice de la función cuadrática')
+        st.subheader('Estudiando el vértice de la función cuadrática de $y='+latex(eq)+"$")
         d2=max_min(eq)
         st.pyplot(d2['fg'])
         # st.markdown(d1['md1'])

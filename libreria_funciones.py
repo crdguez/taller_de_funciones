@@ -53,8 +53,12 @@ def pendiente_ordenada(eq, x0, x1) :
     plt.text((x0+x1)/2,imagen[0],"$"+latex(x1-x0)+"$")
     plt.text(x1,imagen[0],r"$m=\frac{"+latex(S(imagen[1]-imagen[0]))+r"}{"+latex(x1-x0)+r"}="+latex((S(imagen[1]-imagen[0]))/(x1-x0))+"$")
     plt.text(x1,(imagen[1]+imagen[0])/2,"$"+latex(S(imagen[1]-imagen[0]))+"$")
-    txt = "Observa que dados dos puntos de la gráfica, la razón entre \
-    la variación de las **y** y la variación de las **x** se mantiene constante."
+    txt = " * Observa que dados dos puntos de la gráfica, la razón entre \
+    la variación de las **y** y la variación de las **x** se mantiene constante. \
+      \n * A la constante anterior se le llama *pendiente* y coincide con el valor del \
+      parámetro *m*. Por esta razón al parámetro *m* de la función lineal se le llama **pendiente** \
+      \n * Observa que el parámetro *n* coincide con el valor del punto donde la recta corta \
+      al eje **OY**. Por esta razón al parámetro *n* de la función lineal se le llama **ordenada en el origen**"
     plt.scatter(lista,imagen)
 
     d['fg']=p2._backend.fig
