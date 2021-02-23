@@ -40,7 +40,7 @@ def app(funcion) :
 
     # p=st.select_slider('Selecciona el número de puntos que se representarán', options=[10,20,50])
     p=st.selectbox('Selecciona el número de puntos que se representarán', (10,20,50))
-    st.write("Dando valores a la variable *x* y sustituyendo en la expresión $"+latex(d['exp'])+"$ obtenemos los valores de la *y*:")
+    st.write("Dando valores a la variable **x** y sustituyendo en la expresión $"+latex(d['exp'])+"$ obtenemos los valores de la **y**:")
 
     col31, col32 = st.beta_columns([1,3])
 
