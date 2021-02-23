@@ -31,8 +31,8 @@ def carac(exp,tipo) :
             # el origen: " + latex(Poly(exp,x).TC())
         # d['extra']['pendiente']= "$"+latex(Poly(exp,x).LC())+"$"
         # d['extra']['ordenada']= "$"+latex(Poly(exp,x).TC())+"$"
-        d['extra']['pendiente']= Poly(exp,x).LC()
-        d['extra']['ordenada']= Poly(exp,x).TC()
+        d['extra']['Pendiente']= Poly(exp,x).LC()
+        d['extra']['Ordenada']= Poly(exp,x).TC()
 
 
 
