@@ -116,7 +116,6 @@ def dom_rec(eq,cte,var=x) :
                 plt.text(vx+0.2,vy+0.5,"$\left("""+latex(vx)+r','+latex(vy)+r"\right)$")
                 # p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
 
-                txt += """  \n El punto $\left("""+latex(vx)+r','+latex(vy)+r"\right)$"+""" pertenece a la gráfica. Por
-                tanto:  \n * $"""+latex(vx)+""" \in Dom(f)$ y  \n * $"""+latex(vy)+""" \in Im(f)$   \n """
+                txt += "  \n * El punto $\left("+ latex(vx) + r"," +latex(vy) + r"\right)$ "+" pertenece a la gráfica $\\to "+latex(vx)+" \in Dom(f) \land "+latex(vy)+" \in Im(f)$  " 
 
     return [fg,puntos, txt]

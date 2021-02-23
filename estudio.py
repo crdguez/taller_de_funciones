@@ -68,20 +68,19 @@ def app(funcion) :
 
     st.subheader('Estudiando el dominio y recorrido de $y='+latex(eq)+"$")
 
-    st.write("Selecciona entre dominio y recorrido y el valor de la x / y a estudiar:")
+    st.write("Modifica los actuadores para comprobar si un valor determinado pertenece al dominio o al recorrido")
 
     col21, col22= st.beta_columns([1,4])
     with col21 :
-        var=y if st.radio('',('Dominio','Recorrido')) == 'Recorrido' else x
+        var=y if st.radio('Selecciona:',('Dominio','Recorrido')) == 'Recorrido' else x
         cte = st.select_slider(str(var),options=list(np.arange(-3,3.25,0.25)),value=1)
         fg, puntos, txt = dom_rec(eq,cte,var)
-
-
     with col22 :
         st.pyplot(fg)
-
     st.markdown(txt)
-
+    st.info("Observa que \
+      \n * El dominio es $"+latex(d['dominio'])+"$ \
+      \n * El recorrido es $"+latex(d['rango'])+"$")
 
 
 
