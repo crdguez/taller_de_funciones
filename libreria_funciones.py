@@ -33,7 +33,18 @@ def carac(exp,tipo) :
         # d['extra']['ordenada']= "$"+latex(Poly(exp,x).TC())+"$"
         d['extra']['Pendiente']= Poly(exp,x).LC()
         d['extra']['Ordenada']= Poly(exp,x).TC()
+        d['forma']='La **gráfica** de la función es una **línea recta**. Si la pendiente es positiva \
+        la función es creciente, si es negativa, decreciente, y si es cero, la recta es horizontal. \
+        A las funciones cuya gráfica es horizontal se les llama **funciones constantes**. '
 
+    if tipo == 'cuadratica' :
+        # d['extra']['0'] = "Pendiente: " +latex(Poly(exp,x).LC())+" y Ordenada en \
+            # el origen: " + latex(Poly(exp,x).TC())
+        # d['extra']['pendiente']= "$"+latex(Poly(exp,x).LC())+"$"
+        # d['extra']['ordenada']= "$"+latex(Poly(exp,x).TC())+"$"
+        v0=-1*Poly(exp,x).all_coeffs()[1]/(2*Poly(exp,x).all_coeffs()[0])
+        d['extra']['vertice']= "$"+latex(v0)+"$"
+        d['forma']='La **gráfica** de la función es una **parábola**. '
 
 
     return d
@@ -53,7 +64,7 @@ def pendiente_ordenada(eq, x0, x1) :
     plt.text((x0+x1)/2,imagen[0],"$"+latex(x1-x0)+"$")
     plt.text(x1,imagen[0],r"$m=\frac{"+latex(S(imagen[1]-imagen[0]))+r"}{"+latex(x1-x0)+r"}="+latex((S(imagen[1]-imagen[0]))/(x1-x0))+"$")
     plt.text(x1,(imagen[1]+imagen[0])/2,"$"+latex(S(imagen[1]-imagen[0]))+"$")
-    txt = " * Observa que dados dos puntos de la gráfica, la razón entre \
+    txt = " * Dados dos puntos de la gráfica, la razón entre \
     la variación de las **y** y la variación de las **x** se mantiene constante. \
       \n * A la constante anterior se le llama *pendiente* y coincide con el valor del \
       parámetro *m*. Por esta razón al parámetro *m* de la función lineal se le llama **pendiente** \
@@ -116,6 +127,6 @@ def dom_rec(eq,cte,var=x) :
                 plt.text(vx+0.2,vy+0.5,"$\left("""+latex(vx)+r','+latex(vy)+r"\right)$")
                 # p2.append(List2DSeries([vx-0.1,vx+0.1],[vy,vy]))
 
-                txt += "  \n * El punto $\left("+ latex(vx) + r"," +latex(vy) + r"\right)$ "+" pertenece a la gráfica $\\to "+latex(vx)+" \in Dom(f) \land "+latex(vy)+" \in Im(f)$  " 
+                txt += "  \n * El punto $\left("+ latex(vx) + r"," +latex(vy) + r"\right)$ "+" pertenece a la gráfica $\\to "+latex(vx)+" \in Dom(f) \land "+latex(vy)+" \in Im(f)$  "
 
     return [fg,puntos, txt]

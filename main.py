@@ -69,8 +69,10 @@ def prop_inversa():
     d['ex_gen']=ex_gen
     d['eq']=eq
     d['tex']=ex
-    d['md']= """Las funciones *de proporcionalidad inversa* son las funciones del tipo:
-       \n  $"""+r"""y=a+\frac{k}{x-b}$"""
+    d['md']= """Las funciones *de proporcionalidad inversa* aparecen al relacionar dos magnitudes
+    inversamente proporcionales:
+       \n * :key: Tienen una expresión general del tipo:  $y=a+\\frac{k}{x-b}$
+       \n * Su representación gráfica es una hipérbola"""
     d['title']= 'Funciones de proporcionalidad inversa'
     d['tipo']=prop_inversa.__name__
     return d

@@ -40,7 +40,7 @@ def app(funcion) :
 
     # p=st.select_slider('Selecciona el número de puntos que se representarán', options=[10,20,50])
     p=st.selectbox('Selecciona el número de puntos que se representarán', (10,20,50))
-    st.write("Dando valores a la variable **x** y sustituyendo en la expresión $"+latex(d['exp'])+"$ obtenemos los valores de la **y**:")
+    st.write("Dando valores a la variable **x** y sustituyendo en la expresión $"+latex(d['exp'])+"$, obtenemos los valores de la **y**:")
 
     col31, col32 = st.beta_columns([1,3])
 
@@ -62,6 +62,10 @@ def app(funcion) :
         plt.scatter(lista,lista2)
         st.pyplot(fig)
 
+    if 'forma' in d:
+        st.write(':white_check_mark: Observa que:')
+        st.success(d['forma'])
+
 
 
     # Estudio del dominio y el Recorrido
@@ -78,7 +82,8 @@ def app(funcion) :
     with col22 :
         st.pyplot(fg)
     st.markdown(txt)
-    st.info("Observa que \
+    st.write(':white_check_mark: Observa que:')
+    st.info("\
       \n * El dominio es $"+latex(d['dominio'])+"$ \
       \n * El recorrido es $"+latex(d['rango'])+"$")
 
@@ -98,6 +103,7 @@ def app(funcion) :
             d1=pendiente_ordenada(eq,x0,x1)
         with col32 :
             st.pyplot(d1['fg'])
+        st.write(':white_check_mark: Observa que:')
         st.info(d1['md1'])
 
     if tipo == 'cuadratica' :
