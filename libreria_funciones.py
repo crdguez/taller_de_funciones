@@ -19,7 +19,12 @@ def carac(exp,tipo) :
     #d['dominio']=S.Reals - singularities(exp,x)
     d['dominio']=continuous_domain(exp,x,S.Reals)
     d['rango']=function_range(exp,x,S.Reals)
-    d['fg']= plot_implicit(Eq(y,exp), (x, -10, 10), (y, -10, 10))._backend.fig
+#     plot_implicit(Eq(y,exp), (x, -10, 10), (y, -10, 10))._backend.fig
+    p=plot_implicit(Eq(y,exp), (x, -10, 10), (y, -10, 10))
+    fg, ax = p._backend.fig, p._backend.fig 
+    ax[0].set_aspect('equal')
+    plt.grid=True
+    d['fg']= fg
     d['poly']=exp.is_polynomial()
 
     # extra
