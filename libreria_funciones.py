@@ -21,10 +21,10 @@ def carac(exp,tipo) :
     d['rango']=function_range(exp,x,S.Reals)
 #     plot_implicit(Eq(y,exp), (x, -10, 10), (y, -10, 10))._backend.fig
     p=plot_implicit(Eq(y,exp), (x, -10, 10), (y, -10, 10))
+    p.grid(True)
     fg, ax = p._backend.fig, p._backend.ax 
     ax[0].set_aspect('equal')
 #     plt.grid(True)
-    plt.grid(True)
     d['fg']= fg
     d['poly']=exp.is_polynomial()
 
