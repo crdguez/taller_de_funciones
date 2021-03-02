@@ -142,7 +142,7 @@ def app(funcion) :
 #         plt.scatter(solve(eq),imagenes)
         st.pyplot(fg2)
         
-        st.alert("La función anterior tiene 1 punto de corte")
+        st.info("La función anterior tiene 1 punto de corte")
 
 
         
