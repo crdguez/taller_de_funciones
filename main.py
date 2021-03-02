@@ -26,7 +26,8 @@ def lineal():
       \n * :key: Tienen una **expresión general** del tipo: $y=mx+n$
         \n * Su representación gráfica es una **línea recta**
           \n * El parámetro *m* refleja la inclinación o **pendiente** de la recta
-          \n * El parámetro *n* refleja por dónde **corta** la recta al eje OY"""
+          \n * El parámetro *n* refleja por dónde **corta** la recta al eje OY. A este 
+          parámetro se le llama **ordenada en el origen**"""
     d['title']= 'Funciones Lineales'
     d['tipo']=lineal.__name__
     # d['extra']=dict()
