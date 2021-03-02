@@ -141,6 +141,8 @@ def app(funcion) :
 #         imagenes = [eq.subs(x,i) for i in solve(eq)]
 #         plt.scatter(solve(eq),imagenes)
         st.pyplot(fg2)
+        
+        st.alert("La función anterior tiene 1 punto de corte")
 
 
         
