@@ -24,6 +24,7 @@ def carac(exp,tipo) :
     fg, ax = p._backend.fig, p._backend.ax 
     ax[0].set_aspect('equal')
 #     plt.grid(True)
+    plt.grid(True)
     d['fg']= fg
     d['poly']=exp.is_polynomial()
 
