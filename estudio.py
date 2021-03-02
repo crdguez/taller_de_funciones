@@ -21,7 +21,8 @@ def app(funcion) :
             "$  \n * Dominio: $"+latex(d['dominio'])+"$ \
               \n * Recorrido: $"+latex(d['rango'])+"$"
         for k,v in d['extra'].items() :
-            txt_carac +="  \n * "+str(k) + r': $'+ latex(v) +"$ "
+#             txt_carac +="  \n * "+str(k) + r': $'+ latex(v) +"$ "
+            txt_carac +="  \n * "+str(k) + r': '+ v
             # st.markdown(k + r' $\to$ ' + v)
         st.write(txt_carac)
 
