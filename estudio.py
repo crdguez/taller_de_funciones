@@ -108,7 +108,7 @@ def app(funcion) :
         st.info(d1['md1'])
 
     if tipo == 'cuadratica' :
-        # graficamos la Pendiente
+        # Dibujamos el vértice
         st.subheader('Estudiando el vértice de la función cuadrática de $y='+latex(eq)+"$")
         d2=max_min(eq)
         st.pyplot(d2['fg'])
@@ -121,3 +121,11 @@ def app(funcion) :
         txt += "  \n * Segunda coordenada:  \n"
         txt += "$"+latex(eq.subs(x,UnevaluatedExpr(d2['maxmin'][0])))+"="+latex(eq.subs(x,d2['maxmin'][0]))+"$"
         st.info(txt)
+        
+        # Cortes con el eje x
+        st.subheader('Estudiando los cortes con el eje *OX* de $y='+latex(eq)+"$")
+        
+        st.info(':white_check_mark: Observa que el vértice puede estar por debajo, por arriba o en \
+        el mismo eje. Según la orientación de la parábola, esto nos dará 0, 2 o 1 corte con el eje **OX** ')
+
+        
