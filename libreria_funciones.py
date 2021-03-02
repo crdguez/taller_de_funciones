@@ -44,8 +44,7 @@ def carac(exp,tipo) :
         # d['extra']['ordenada']= "$"+latex(Poly(exp,x).TC())+"$"
         v0=-1*Poly(exp,x).all_coeffs()[1]/(2*Poly(exp,x).all_coeffs()[0])
 #         d['extra']['Vértice']= "$"+latex(v0)+"$"
-#         d['extra']['Vértice']= "$"+latex(max_min(exp)['maxmin'])+"$"
-        d['extra']['Vértice']= "$"+latex(Poly(exp,x).TC())+"$"
+        d['extra']['Vértice']= max_min(exp)['maxmin']
         d['forma']='La **gráfica** de la función es una **parábola**. '
 
 
