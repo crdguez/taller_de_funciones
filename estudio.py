@@ -138,13 +138,21 @@ def app(funcion) :
         
         st.info("La función anterior tiene 1 punto de corte")
 
-        p=plot_implicit(Eq(y,x**2), (x, -10, 10), (y, -10, 10))
+        p=plot_implicit(Eq(y,x**2-1), (x, -10, 10), (y, -10, 10))
         fg2, ax = p._backend.fig, p._backend.ax 
         ax[0].set_title("$y=x^2-1$")
         ax[0].set_aspect('equal')
         st.pyplot(fg2)
         
-        st.info("La función anterior tiene 2 punto2 de corte")
+        st.info("La función anterior tiene 2 puntos de corte")
+        
+        p=plot_implicit(Eq(y,x**2+1), (x, -10, 10), (y, -10, 10))
+        fg2, ax = p._backend.fig, p._backend.ax 
+        ax[0].set_title("$y=x^2+1$")
+        ax[0].set_aspect('equal')
+        st.pyplot(fg2)
+        
+        st.info("La función anterior no tiene puntos de corte")
 
 
         
