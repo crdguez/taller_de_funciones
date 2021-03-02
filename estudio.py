@@ -123,14 +123,14 @@ def app(funcion) :
         st.info(txt)
         
         # Cortes con el eje x
-        st.subheader('Estudiando los cortes con el eje *OX* de $y='+latex(eq)+"$")
+        st.subheader('Estudiando los cortes con el eje *OX* )
         
         st.info(':key: Observa que el vértice puede estar por debajo, por arriba o en \
-        el mismo eje. Según la orientación de la parábola, esto nos dará 0, 2 o 1 corte con el eje **OX** ')
+        el mismo eje. Según la orientación de la parábola, esto nos dará **0, 2 o 1** corte con el eje **OX** ')
         st.write("Puedes comprobar lo anterior a partir de la función $y=x^2$ en el apartado de características \
         y modificar el parámetro **c**, dándole valores positivos y negativos. ¿Cuántos cortes con el eje \
         aparecen?")
-        p=plot_implicit(Eq(y,eq), (x, -10, 10), (y, -10, 10))
+        p=plot_implicit(Eq(y,x**2), (x, -10, 10), (y, -10, 10))
         lista=solve(eq)
         imagen=lambdify(x,eq)(np.array(lista))
         [plt.text(i,eq.subs(x,i)+1,"$\left("+latex(i)+r','+latex(eq.subs(x,i))+r"\right)$") for i in lista]
