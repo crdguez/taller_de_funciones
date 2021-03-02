@@ -113,7 +113,8 @@ def app(funcion) :
         d2=max_min(eq)
         st.pyplot(d2['fg'])
         # st.markdown(d1['md1'])
-        txt = "Observa que el **vértice** tiene de coordenadas $\\left(\\frac{-b}{2a},f\\left(\\frac{-b}{2a}\\right)\\right)$: \
+        st.write(':white_check_mark: Observa que:')
+        txt = " *  El **vértice** tiene de coordenadas $\\left(\\frac{-b}{2a},f\\left(\\frac{-b}{2a}\\right)\\right)$: \
            \n  * Primera coordenada: \
             $\\frac{-b}{2a}=\\frac{"+latex(-1*Poly(eq,x).all_coeffs()[1])+"}{2\\cdot\\left("+latex(Poly(eq,x).all_coeffs()[0])+"\\right)}="
         txt += latex(-1*Poly(eq,x).all_coeffs()[1]/(2*Poly(eq,x).all_coeffs()[0]))+"$."
