@@ -131,14 +131,15 @@ def app(funcion) :
         y modificar el parámetro **c**, dándole valores positivos y negativos. ¿Cuántos cortes con el eje \
         aparecen?")
         p=plot_implicit(Eq(y,x**2), (x, -10, 10), (y, -10, 10))
-        lista=solve(eq)
-        imagen=lambdify(x,eq)(np.array(lista))
-        [plt.text(i,eq.subs(x,i)+1,"$\left("+latex(i)+r','+latex(eq.subs(x,i))+r"\right)$") for i in lista]
-        plt.scatter(lista,imagen)
+#         lista=solve(eq)
+#         imagen=lambdify(x,eq)(np.array(lista))
+#         [plt.text(i,eq.subs(x,i)+1,"$\left("+latex(i)+r','+latex(eq.subs(x,i))+r"\right)$") for i in lista]
+#         plt.scatter(lista,imagen)
         fg2, ax = p._backend.fig, p._backend.ax 
+        ax.title("$y=x^2$")
         ax[0].set_aspect('equal')
-        imagenes = [eq.subs(x,i) for i in solve(eq)]
-        plt.scatter(solve(eq),imagenes)
+#         imagenes = [eq.subs(x,i) for i in solve(eq)]
+#         plt.scatter(solve(eq),imagenes)
         st.pyplot(fg2)
 
 
