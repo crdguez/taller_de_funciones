@@ -136,7 +136,7 @@ def app(funcion) :
 #         [plt.text(i,eq.subs(x,i)+1,"$\left("+latex(i)+r','+latex(eq.subs(x,i))+r"\right)$") for i in lista]
 #         plt.scatter(lista,imagen)
         fg2, ax = p._backend.fig, p._backend.ax 
-        ax.title("$y=x^2$")
+        ax[0].set_title("$y=x^2$")
         ax[0].set_aspect('equal')
 #         imagenes = [eq.subs(x,i) for i in solve(eq)]
 #         plt.scatter(solve(eq),imagenes)
