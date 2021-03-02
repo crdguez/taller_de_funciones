@@ -122,15 +122,16 @@ def app(funcion) :
         txt += "$"+latex(eq.subs(x,UnevaluatedExpr(d2['maxmin'][0])))+"="+latex(eq.subs(x,d2['maxmin'][0]))+"$"
         st.info(txt)
         
-#         # Cortes con el eje x
-#         st.subheader('Estudiando los cortes con el eje *OX* de $y='+latex(eq)+"$")
+        # Cortes con el eje x
+        st.subheader('Estudiando los cortes con el eje *OX* de $y='+latex(eq)+"$")
         
-#         st.info(':key: Observa que el vértice puede estar por debajo, por arriba o en \
-#         el mismo eje. Según la orientación de la parábola, esto nos dará 0, 2 o 1 corte con el eje **OX** ')
-#         st.write("Puedes comprobar lo anterior a partir de la función $y=x^2$ en el apartado de características \
-#         y modificar el parámetro **c**, dándole valores positivos y negativos. ¿Cuántos cortes con el eje \
-#         aparecen?")
-
+        st.info(':key: Observa que el vértice puede estar por debajo, por arriba o en \
+        el mismo eje. Según la orientación de la parábola, esto nos dará 0, 2 o 1 corte con el eje **OX** ')
+        st.write("Puedes comprobar lo anterior a partir de la función $y=x^2$ en el apartado de características \
+        y modificar el parámetro **c**, dándole valores positivos y negativos. ¿Cuántos cortes con el eje \
+        aparecen?")
+        fg=d['fg']
+        st.pyplot(fg)  
 
 
         
