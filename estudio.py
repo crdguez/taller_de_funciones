@@ -123,7 +123,7 @@ def app(funcion) :
         st.info(txt)
         
         # Cortes con el eje x
-        st.subheader('Estudiando los cortes con el eje *OX* )
+        st.subheader('Estudiando los cortes con el eje *OX*' )
         
         st.info(':key: Observa que el vértice puede estar por debajo, por arriba o en \
         el mismo eje. Según la orientación de la parábola, esto nos dará **0, 2 o 1** corte con el eje **OX** ')
