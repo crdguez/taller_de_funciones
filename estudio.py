@@ -133,7 +133,8 @@ def app(funcion) :
         p=plot_implicit(Eq(y,eq), (x, -10, 10), (y, -10, 10))
         fg2, ax = p._backend.fig, p._backend.ax 
         ax[0].set_aspect('equal')
-        plt.scatter(solve(eq),solve(eq))
+        imagenes = [eq.subs(x,i) for i in solve(eq)]
+        plt.scatter(solve(eq),imagenes)
         st.pyplot(fg2)
 
 
