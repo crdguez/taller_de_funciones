@@ -22,7 +22,7 @@ def app(funcion) :
               \n * Recorrido: $"+latex(d['rango'])+"$"
         for k,v in d['extra'].items() :
 #             txt_carac +="  \n * "+str(k) + r': $'+ latex(v) +"$ "
-            txt_carac +="  \n * "+str(k) + r': '+ v
+            txt_carac +="  \n * "+str(k) + r': '+ str(v)
             # st.markdown(k + r' $\to$ ' + v)
         st.write(txt_carac)
 
