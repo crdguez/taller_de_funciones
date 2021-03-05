@@ -121,38 +121,39 @@ def app(funcion) :
         txt += "  \n * Segunda coordenada:  \n"
         txt += "$"+latex(eq.subs(x,UnevaluatedExpr(d2['maxmin'][0])))+"="+latex(eq.subs(x,d2['maxmin'][0]))+"$"
         st.info(txt)
-        
-        # Cortes con el eje x
-        st.subheader('Estudiando los cortes con el eje *OX*' )
-        
+
+        # Cortes con los ejes
+        st.subheader('Estudiando los cortes con los ejes de $y='+latex(eq)+"$" )
+
         st.info(':key: Observa que el vértice puede estar por debajo, por arriba o en \
         el mismo eje. Según la orientación de la parábola, esto nos dará **0, 2 o 1** corte con el eje **OX** ')
         st.write("Puedes comprobar lo anterior a partir de la función $y=x^2$ en el apartado de características \
         y modificar el parámetro **c**, dándole valores positivos y negativos. ¿Cuántos cortes con el eje \
         aparecen?")
-        p=plot_implicit(Eq(y,x**2), (x, -10, 10), (y, -10, 10))
-        fg2, ax = p._backend.fig, p._backend.ax 
-        ax[0].set_title("$y=x^2$")
-        ax[0].set_aspect('equal')
-        st.pyplot(fg2)
-        
-        st.info("La función anterior tiene 1 punto de corte")
+        # p=plot_implicit(Eq(y,x**2), (x, -10, 10), (y, -10, 10))
+        # fg2, ax = p._backend.fig, p._backend.ax
+        # ax[0].set_title("$y=x^2$")
+        # ax[0].set_aspect('equal')
+        # st.pyplot(fg2)
+        #
+        # st.info("La función anterior tiene 1 punto de corte")
+        cort=cortes(eq)
+        st.pyplot(cort['fg'])
+        txt="Puntos de cortes con los ejes:"
 
-        p=plot_implicit(Eq(y,x**2-1), (x, -10, 10), (y, -10, 10))
-        fg2, ax = p._backend.fig, p._backend.ax 
-        ax[0].set_title("$y=x^2-1$")
-        ax[0].set_aspect('equal')
-        st.pyplot(fg2)
-        
-        st.info("La función anterior tiene 2 puntos de corte")
-        
-        p=plot_implicit(Eq(y,x**2+1), (x, -10, 10), (y, -10, 10))
-        fg2, ax = p._backend.fig, p._backend.ax 
-        ax[0].set_title("$y=x^2+1$")
-        ax[0].set_aspect('equal')
-        st.pyplot(fg2)
-        
-        st.info("La función anterior no tiene puntos de corte")
+        # for i in cort['ox'] :
+        #     txt += "  \n * $"+latex(i)+"$"
+        if len(cort['ox']) != 0 :
+            txt += "  \n * Cortes OX: $"+"$, $".join(list(map(latex, cort['ox'])))+"$" 
+        txt += "  \n * Cortes OY: $"+latex(cort['oy'])+"$"
+        st.write(txt)
 
-
-        
+        # st.info("La función anterior tiene 2 puntos de corte")
+        #
+        # p=plot_implicit(Eq(y,x**2+1), (x, -10, 10), (y, -10, 10))
+        # fg2, ax = p._backend.fig, p._backend.ax
+        # ax[0].set_title("$y=x^2+1$")
+        # ax[0].set_aspect('equal')
+        # st.pyplot(fg2)
+        #
+        # st.info("La función anterior no tiene puntos de corte")

@@ -21,9 +21,9 @@ def carac(exp,tipo) :
     d['rango']=function_range(exp,x,S.Reals)
 #     plot_implicit(Eq(y,exp), (x, -10, 10), (y, -10, 10))._backend.fig
     p=plot_implicit(Eq(y,exp), (x, -10, 10), (y, -10, 10))
-    fg, ax = p._backend.fig, p._backend.ax 
+    fg, ax = p._backend.fig, p._backend.ax
     ax[0].set_aspect('equal')
-    
+
     d['fg']= fg
     d['poly']=exp.is_polynomial()
 
@@ -98,6 +98,28 @@ def max_min(eq) :
     d['maxmin']=lista
 
     return d
+
+
+def cortes(eq) :
+    d = dict()
+    # devuelve los puntos de corte
+    p=plot_implicit(Eq(y,eq), (x, -10, 10), (y, -10, 10))
+    fg, ax = p._backend.fig, p._backend.ax
+    ax[0].set_title("$y="+latex(eq)+"$")
+    ax[0].set_aspect('equal')
+    # corte_x = [] if len(list(solveset(eq, domain=S.Reals))) == 0 else list(solveset(eq, domain=S.Reals))
+    lista=list(solveset(eq, domain=S.Reals))
+    imagenes = [eq.subs(x,i) for i in lista]
+    plt.scatter(lista,imagenes)
+    plt.scatter([0],[eq.subs(x,0)])
+    plt.grid(True)
+
+    d['fg']=fg
+    d['ox']=list(zip(lista,imagenes))
+    d['oy']=(0,eq.subs(x,0))
+
+    return d
+
 
 def dom_rec(eq,cte,var=x) :
     # Devuelve la gráfica de la ecuación y la recta, y los puntos de corte con la recta var=ctw
