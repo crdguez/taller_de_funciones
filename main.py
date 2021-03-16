@@ -23,10 +23,10 @@ def lineal():
     d['eq']=eq
     d['tex']=ex
     d['md']= """Las funciones *lineales* son las funciones polinómicas de primer grado.
-      \n * :key: Tienen una **expresión general** del tipo: $y=mx+n$
+      \n * :key: Tienen una **expresión general** del tipo: $\\boxed{\\bm{y=mx+n}}$
         \n * Su representación gráfica es una **línea recta**
           \n * El parámetro *m* refleja la inclinación o **pendiente** de la recta
-          \n * El parámetro *n* refleja por dónde **corta** la recta al eje OY. A este 
+          \n * El parámetro *n* refleja por dónde **corta** la recta al eje OY. A este
           parámetro se le llama **ordenada en el origen**"""
     d['title']= 'Funciones Lineales'
     d['tipo']=lineal.__name__
@@ -40,7 +40,10 @@ def cuadratica() :
     ex_gen = 'a*x**2+b*x+c'
     ex=latex(S(ex_gen))
     st.sidebar.write('Parámetros de $'+latex(Eq(y,S(ex_gen)))+"$ :")
-    a = st.sidebar.select_slider('a',options=list(range(-1*sz,sz+1)),value=1)
+    l=[i for i in range(-1*sz,sz+1)]
+    l.remove(0)
+    # st.write(l)
+    a = st.sidebar.select_slider('a',options=l,value=1)
     b = st.sidebar.select_slider('b',options=list(range(-1*sz,sz+1)),value=1)
     c = st.sidebar.select_slider('c',options=list(range(-1*sz,sz+1)),value=1)
     ex=r'ax^2+bx+c'
@@ -50,8 +53,15 @@ def cuadratica() :
     d['eq']=eq
     d['tex']=ex
     d['md']= """Las funciones *cuadráticas* son las funciones polinómicas de segundo grado.
-        \n * :key: Tienen una **expresión general** de este tipo: $"""+"""y=ax^2+bx+c$
-        \n * Su representación gráfica es una **curva parabólica**"""
+        \n * :key: Tienen una **expresión general** de este tipo: $"""+"""\\boxed{\\bm{y=ax^2+bx+c}}$
+        \n * Su representación gráfica es una **curva parabólica**
+        \n * Dependiendo de la oriéntación de la parábola, esta tendrá un mínimo o máximo relativo
+        llamado **vértice**
+        \n * La **parábola es una curva simétrica** y su eje de simetría es la recta vertical que pasa
+        por el vértice
+
+        """
+
     d['title']= 'Funciones Cuadráticas'
     d['tipo']=cuadratica.__name__
     return d
@@ -72,8 +82,10 @@ def prop_inversa():
     d['tex']=ex
     d['md']= """Las funciones *de proporcionalidad inversa* aparecen al relacionar dos magnitudes
     inversamente proporcionales:
-       \n * :key: Tienen una expresión general del tipo:  $y=a+\\frac{k}{x-b}$
-       \n * Su representación gráfica es una hipérbola"""
+       \n * :key: Tienen una expresión general del tipo:  $\\boxed{\\bm{y=a+\\frac{k}{x-b}}}$
+       \n * :key: Si operamos la expresión anterior llegaremos a una expresión general reducida del tipo:
+       $\\boxed{\\bm{y=\\dfrac{a_1 x +b_1}{c_1 x +d_1}}}$
+       \n * Su representación gráfica es una **hipérbola**"""
     d['title']= 'Funciones de proporcionalidad inversa'
     d['tipo']=prop_inversa.__name__
     return d
@@ -131,6 +143,14 @@ FUNCIONES = {
     "Logarítmica": logaritmica,
 }
 
+FUNCIONES_ACT = {
+    "Lineales": 'lineal',
+    "Cuadráticas": 'cuadratica',
+    "Proporcionalidad inversa":' prop_inversa',
+    "Exponencial": 'exponencial',
+    "Logarítmica": 'logaritmica',
+}
+
 
 st.set_page_config(
     page_title='Laboratorio de funciones',
@@ -146,7 +166,8 @@ if selection == list(PAGES.keys())[1] :
     estudio.app(FUNCIONES[tipo]())
 
 elif selection == list(PAGES.keys())[2] :
-    actividades.app()
+    tipo = st.sidebar.radio("Tipo de función:", list(FUNCIONES_ACT.keys()),index=1)
+    actividades.app(FUNCIONES_ACT[tipo])
 
 else :
     intro.app()

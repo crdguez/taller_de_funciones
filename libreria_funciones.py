@@ -12,24 +12,26 @@ from sympy.calculus.util import continuous_domain, function_range
 def carac(exp,tipo) :
     # Devuelve un diccionario con las características de la función f(x)=exp
     d = dict()
-    d['exp']=exp
+    d['exp']=nsimplify(exp)
+    # d['exp']=exp
     #d['raices']=solve(exp)
     d['raices']=list(solveset(exp, domain=S.Reals))
-    d['oy']=exp.subs(x,0)
+    d['oy']=(0,exp.subs(x,0))
     #d['dominio']=S.Reals - singularities(exp,x)
     d['dominio']=continuous_domain(exp,x,S.Reals)
     d['rango']=function_range(exp,x,S.Reals)
 #     plot_implicit(Eq(y,exp), (x, -10, 10), (y, -10, 10))._backend.fig
     p=plot_implicit(Eq(y,exp), (x, -10, 10), (y, -10, 10))
     fg, ax = p._backend.fig, p._backend.ax
+    ax[0].set_title("$y="+latex(nsimplify(exp))+"$  \n ")
     ax[0].set_aspect('equal')
+    plt.grid(True)
 
-    d['fg']= fg
-    d['poly']=exp.is_polynomial()
+
+    # d['poly']=exp.is_polynomial()
 
     # extra
     d['extra'] = dict()
-    # d['extra']['0'] = "Nada, de momento"
 
     if tipo == 'lineal' :
         # d['extra']['0'] = "Pendiente: " +latex(Poly(exp,x).LC())+" y Ordenada en \
@@ -43,16 +45,23 @@ def carac(exp,tipo) :
         A las funciones cuya gráfica es horizontal se les llama **funciones constantes**. '
 
     if tipo == 'cuadratica' :
-        # d['extra']['0'] = "Pendiente: " +latex(Poly(exp,x).LC())+" y Ordenada en \
-            # el origen: " + latex(Poly(exp,x).TC())
-        # d['extra']['pendiente']= "$"+latex(Poly(exp,x).LC())+"$"
-        # d['extra']['ordenada']= "$"+latex(Poly(exp,x).TC())+"$"
         v0=-1*Poly(exp,x).all_coeffs()[1]/(2*Poly(exp,x).all_coeffs()[0])
         fv0=exp.subs(x,v0)
         d['extra']['Vértice']= "$\\left("+latex(v0)+","+latex(fv0)+"\\right)$"
-#         d['extra']['Vértice']= max_min(exp)['maxmin']
-        d['forma']='La **gráfica** de la función es una **parábola**. '
+        d['forma']='La **gráfica** de la función es una **parábola**.'
+        d['extra']['Eje de Simetría']= "$x="+latex(v0)+"$"
+        plt.plot([v0,v0],[-10,10],linestyle='dotted',color='yellow')
 
+    if tipo == 'prop_inversa' :
+        av=list(singularities(exp,x))[0]
+        ah=limit(exp,x,oo)
+        d['extra']['Asíntota vertical']= "$x="+latex(av)+"$"
+        d['extra']['Asíntota horizontal']= "$y="+latex(ah)+"$"
+        d['forma']='La **gráfica** de la función es una **hipérbola**.'
+        plt.plot([av,av],[-10,10],linestyle='dotted',color='yellow')
+        plt.plot([-10,10],[ah,ah],linestyle='dotted',color='yellow')
+
+    d['fg']= fg
 
     return d
 
@@ -84,6 +93,29 @@ def pendiente_ordenada(eq, x0, x1) :
 
     return d
 
+def tabla_valores(eq, tipo, num, max):
+    d = dict()
+    lista=np.linspace(0.0001,max,num) if tipo == 'logaritmica' else np.linspace(-max,max,num)
+    if tipo == 'lineal' and poly(eq,x).degree() == 0 :
+    # if tipo == 'lineal'  :
+        lista2 = [eq for i in lista]
+    else :
+        # lista2 = lambdify(x,eq)(lista)
+        lista2 = [eq.subs(x,i) for i in lista]
+
+    p = plot_implicit(Eq(y,eq), (x, -10, 10), (y, -10, 10),line_color='yellow')
+    fg, ax = p._backend.fig, p._backend.ax
+    ax[0].set_title("$y="+latex(nsimplify(eq))+"$  \n ")
+    ax[0].set_aspect('equal')
+    plt.grid(True)
+
+    plt.scatter(lista,lista2)
+    d['df']=pd.DataFrame({'x':lista,'y':lista2})
+    d['fg']=fg
+
+    return d
+
+
 def max_min(eq) :
     # devuelve los máximos y mínimos de una función
     d = dict()
@@ -105,13 +137,15 @@ def cortes(eq) :
     # devuelve los puntos de corte
     p=plot_implicit(Eq(y,eq), (x, -10, 10), (y, -10, 10))
     fg, ax = p._backend.fig, p._backend.ax
-    ax[0].set_title("$y="+latex(eq)+"$")
+    ax[0].set_title("$y="+latex(eq)+"$   \n ")
     ax[0].set_aspect('equal')
     # corte_x = [] if len(list(solveset(eq, domain=S.Reals))) == 0 else list(solveset(eq, domain=S.Reals))
     lista=list(solveset(eq, domain=S.Reals))
     imagenes = [eq.subs(x,i) for i in lista]
     plt.scatter(lista,imagenes)
+    [plt.text(i,eq.subs(x,i)+1,"$\left("+latex(i)+r','+latex(eq.subs(x,i))+r"\right)$") for i in lista]
     plt.scatter([0],[eq.subs(x,0)])
+    plt.text(0,eq.subs(x,0)+1,"$\left("+latex(0)+r','+latex(eq.subs(x,0))+r"\right)$")
     plt.grid(True)
 
     d['fg']=fg

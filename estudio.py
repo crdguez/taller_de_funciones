@@ -8,13 +8,15 @@ def app(funcion) :
     st.title(title)
     st.info(md)
     st.markdown("**Ejemplo:**")
-    st.latex("y="+latex(eq))
+    tex = "\\boxed{y="+latex(d['exp'])+"\\to y="+latex(simplify(d['exp']))+"}" if tipo == 'prop_inversa' else "\\boxed{y="+latex(d['exp'])+"}"
+    st.latex(tex)
     st.warning(":point_left: :point_left: :point_left: Puedes cambiar de ejemplo modificando los **parámetros** de la función desde el **menú desplegable de la izquierda**")
     st.write(":unlock: Vamos a ver cómo se comporta la función ejemplo:")
     col11, col12 = st.beta_columns([1,2])
 
     with col11 :
-        corte_x = ' No tiene' if len(list(solveset(eq, domain=S.Reals))) == 0 else "$"+", ".join(map(latex,d['raices']))+"$"
+        # corte_x = ' No tiene' if len(list(solveset(eq, domain=S.Reals))) == 0 else "$"+", ".join(map(latex,d['raices']))+"$"
+        corte_x = ' No tiene' if len(list(solveset(eq, domain=S.Reals))) == 0 else "$"+", ".join(['({},0)'.format(latex(i)) for i in d['raices']])+"$"
         txt_carac = "**Características de ** $y="+ \
             latex(d['exp'])+"$   \n * Corte OX: "+corte_x+ \
             "  \n * Corte OY: $"+latex(d['oy'])+ \
@@ -44,24 +46,28 @@ def app(funcion) :
     st.write("Dando valores a la variable **x** y sustituyendo en la expresión $"+latex(d['exp'])+"$, obtenemos los valores de la **y**:")
 
     col31, col32 = st.beta_columns([1,3])
-
+    d5 = tabla_valores(eq,tipo,p,2)
     with col31 :
 
-        lista=np.linspace(0.0001,2,p) if tipo == 'logaritmica' else np.linspace(-2,2,p)
-        if tipo == 'lineal' and poly(d['exp'],x).degree() == 0 :
-        # if tipo == 'lineal'  :
-            lista2 = [eq for i in lista]
-        else :
-            # lista2 = lambdify(x,eq)(lista)
-            lista2 = [eq.subs(x,i) for i in lista]
-        st.dataframe(pd.DataFrame({'x':lista,'y':lista2}))
+        st.dataframe(d5['df'])
+
+        # lista=np.linspace(0.0001,2,p) if tipo == 'logaritmica' else np.linspace(-2,2,p)
+        # if tipo == 'lineal' and poly(d['exp'],x).degree() == 0 :
+        # # if tipo == 'lineal'  :
+        #     lista2 = [eq for i in lista]
+        # else :
+        #     # lista2 = lambdify(x,eq)(lista)
+        #     lista2 = [eq.subs(x,i) for i in lista]
+        # st.dataframe(pd.DataFrame({'x':lista,'y':lista2}))
 
 
     with col32 :
-        p3 = plot_implicit(Eq(y,eq), (x, -3, 3), (y, -10, 10),line_color='yellow')
-        fig = p3._backend.fig
-        plt.scatter(lista,lista2)
-        st.pyplot(fig)
+        # p3 = plot_implicit(Eq(y,eq), (x, -3, 3), (y, -10, 10),line_color='yellow')
+        # fig = p3._backend.fig
+        # plt.scatter(lista,lista2)
+        # st.pyplot(fig)
+
+        st.pyplot(d5['fg'])
 
     if 'forma' in d:
         st.write(':white_check_mark: Observa que:')
@@ -120,23 +126,12 @@ def app(funcion) :
         txt += latex(-1*Poly(eq,x).all_coeffs()[1]/(2*Poly(eq,x).all_coeffs()[0]))+"$."
         txt += "  \n * Segunda coordenada:  \n"
         txt += "$"+latex(eq.subs(x,UnevaluatedExpr(d2['maxmin'][0])))+"="+latex(eq.subs(x,d2['maxmin'][0]))+"$"
+        txt += "  \n * Por tanto, el vértice se encuentra en el punto: "+d['extra']['Vértice']+""
         st.info(txt)
 
         # Cortes con los ejes
         st.subheader('Estudiando los cortes con los ejes de $y='+latex(eq)+"$" )
 
-        st.info(':key: Observa que el vértice puede estar por debajo, por arriba o en \
-        el mismo eje. Según la orientación de la parábola, esto nos dará **0, 2 o 1** corte con el eje **OX** ')
-        st.write("Puedes comprobar lo anterior a partir de la función $y=x^2$ en el apartado de características \
-        y modificar el parámetro **c**, dándole valores positivos y negativos. ¿Cuántos cortes con el eje \
-        aparecen?")
-        # p=plot_implicit(Eq(y,x**2), (x, -10, 10), (y, -10, 10))
-        # fg2, ax = p._backend.fig, p._backend.ax
-        # ax[0].set_title("$y=x^2$")
-        # ax[0].set_aspect('equal')
-        # st.pyplot(fg2)
-        #
-        # st.info("La función anterior tiene 1 punto de corte")
         cort=cortes(eq)
         st.pyplot(cort['fg'])
         txt="Puntos de cortes con los ejes:"
@@ -144,16 +139,28 @@ def app(funcion) :
         # for i in cort['ox'] :
         #     txt += "  \n * $"+latex(i)+"$"
         if len(cort['ox']) != 0 :
-            txt += "  \n * Cortes OX: $"+"$, $".join(list(map(latex, cort['ox'])))+"$" 
+            txt += "  \n * Cortes OX: $"+"$, $".join(list(map(latex, cort['ox'])))+"$"
         txt += "  \n * Cortes OY: $"+latex(cort['oy'])+"$"
         st.write(txt)
 
-        # st.info("La función anterior tiene 2 puntos de corte")
-        #
-        # p=plot_implicit(Eq(y,x**2+1), (x, -10, 10), (y, -10, 10))
-        # fg2, ax = p._backend.fig, p._backend.ax
-        # ax[0].set_title("$y=x^2+1$")
-        # ax[0].set_aspect('equal')
-        # st.pyplot(fg2)
-        #
-        # st.info("La función anterior no tiene puntos de corte")
+        st.write(':white_check_mark: Observa que en general:')
+        st.info(':paperclip: Dependiendo de los valores de los parámetros **a**, **b**, **c** \
+        el vértice puede estar por debajo, por arriba o en \
+        el mismo eje. Según la orientación de la parábola, esto nos dará **0, 2 o 1** corte con el eje **OX** ')
+        st.write("Modifica los parámetros en el menú de la izquierda para comprobarlo. Puedes probar con $y=x^2$ \
+            , $y=x^2+1$ y $y=x^2-1$. ¿Cuántos cortes con los ejes aparecen?"  )
+        st.info(':paperclip: Con el eje **OY** siempre habrá un corte con el eje y además viene determinado por el parámetro **c**: $\\left(0,c\\right)$ \
+        ')
+
+    if tipo == 'prop_inversa' :
+        # Paso encontrar la expresión general a partir de la reducida
+        st.subheader('Encontrar la expresión general de $y='+latex(simplify(eq))+"$")
+        st.write('Recuerda la **Propiedad Fundamental de la División**:')
+        st.success(':key:  $\\boxed{\\bm{D=d\cdot c +r}} \\to \\dfrac{D}{d}=c+\\dfrac{r}{d}$')
+        n,d = fraction(simplify(eq))
+        c,r = pdiv(n,d)
+        st.write('Si dividimos $'+latex(n)+"$ entre $"+latex(d)+"$ obtenemos: \
+              \n  * Cociente:  $"+latex(c)+"$ y Resto: $"+latex(r)+"$ \
+              \n  * Aplicando la propiedad fundamental:  \n   \t * $\\dfrac{"+latex(n)+"}{"+latex(d)+"}=  \
+              "+latex(c)+"+\\dfrac{"+latex(r)+"}{"+latex(d)+"}$ \
+              \n * Por tanto, tendremos la siguiente **expresión general**: $\\boxed{\\bm{y="+latex(eq).replace('frac','dfrac')+"}}$" )
