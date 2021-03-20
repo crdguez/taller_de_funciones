@@ -13,7 +13,7 @@ El fichero principal se llama *main.py*. Podemos lanzar la aplicación de difere
 He creado un fichero *main.py* con el código de *streamlit*. Si no tengo el docker creado, lo creo con el siguiente comando:
 
 ```
-docker run -it -p 8501:8501 -v $PWD:/app crdguez/streamlit main.py
+docker run -it -p 8501:8501 --name taller -v $PWD:/app crdguez/streamlit main.py
 ```
 
 Para que funcione deberá lanzarse desde la ruta donde esté el fichero *main.py*
