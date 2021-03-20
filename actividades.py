@@ -4,15 +4,18 @@ from libreria_funciones import *
 import time
 
 def app(tipo) :
-    st.title("Actividades **(En Construcción)**")
+    st.info(":exclamation: En **CONSTRUCCIÓN**")
+    txt="Actividades del tipo de función: {}".format(tipo)
+    st.title(txt)
     st.warning(':bell: Las actividades propuestas vienen con la solución sin mostrar. Se recomienda encarecidamente no \
         consultarla hasta que no se haya trabajado previamente. Se recomienda realizar las actividades con los \
         manipulables que aparecen en el apartado **Estudio de funciones** del menú.')
     # st.write(tipo)
-    st.info(":exclamation: **RECUERDA:** Las funciones *lineales* tienen una **expresión general** del tipo: $\\boxed{\\bm{y=mx+n}}$")
+
 
     if tipo == 'lineal' :
         # Estudio de Parámetros
+        st.info(":exclamation: **RECUERDA:** Las funciones *lineales* tienen una **expresión general** del tipo: $\\boxed{\\bm{y=mx+n}}$")
         st.header('**Actividad:** ¿Qué forma tienen las gráficas de las funciones lineales?')
         exp = x+1
         st.write('Toma, por ejemplo, la función $y='+latex(exp)+'$ \
