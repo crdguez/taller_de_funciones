@@ -1,11 +1,14 @@
-# Probando Streamlit
+# Taller de funciones
 
-Pues eso, pruebas de [streamlit](https://www.streamlit.io/)
+Aplicación para ver la teoría de las principales funciones: lineales, cuadráticas, ... . Para ello se ha utilizado [streamlit](https://www.streamlit.io/)
 
-Las pruebas las estoy haciendo en el fichero *main.py*. Podemos lanzar la aplicación de diferentes maneras:
+---
 
+## Instrucciones de uso
 
-## Lanzando un contendor docker con Streamlit y la aplicacion *main.py*
+El fichero principal se llama *main.py*. Podemos lanzar la aplicación de diferentes maneras:
+
+### Lanzando un contendor docker con Streamlit y la aplicacion *main.py*
 
 He creado un fichero *main.py* con el código de *streamlit*. Si no tengo el docker creado, lo creo con el siguiente comando:
 
@@ -32,7 +35,7 @@ Si queremos abrir un terminal en modo root del contenedor:
 docker exec -it -u 0 nombre_contenedor /bin/bash
 ```
 
-### Lanzar un contenedor con aplicaciones guardadas en la carpeta *src*
+#### Lanzar un contenedor con aplicaciones guardadas en la carpeta *src*
 
 Por ejemplo
 
@@ -42,7 +45,7 @@ docker run -it -p 8501:8501 -v $PWD:/app  crdguez/streamlit ./src/st_demo_settin
 
 
 
-### Modificar la imagen docker *crdguez/streamlit*
+#### Modificar la imagen docker *crdguez/streamlit*
 
 EL fichero *Dockerfile* y *requirements.txt* contienen la información para crear la imagen docker. Se pueden modificar los fichero a gusto del consumidor.
 
@@ -54,8 +57,8 @@ docker build -t usuario_docker_hub/streamlit .
 
 ## Viendo la aplicación *deployada* en el servicio de Streamlit
 
-https://share.streamlit.io/crdguez/probando_streamlit/main/main.py
+https://share.streamlit.io/crdguez/taller_de_funciones/main/main.py
 
-## Desplegada en *Google colab*
+### Desplegada en *Google colab*
 
 Para ello ejecutamos desde *Google colab* el *notebook* que aparece en la raíz del repositorio
