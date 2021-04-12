@@ -1,6 +1,6 @@
-# Taller de funciones
+# Taller de funciones con Streamlit
 
-Aplicación para ver la teoría de las principales funciones: lineales, cuadráticas, ... . Para ello se ha utilizado [streamlit](https://www.streamlit.io/)
+Aplicación web para ver la teoría de las principales funciones: lineales, cuadráticas, ... . Para ello se ha utilizado [streamlit](https://www.streamlit.io/)
 
 ---
 
