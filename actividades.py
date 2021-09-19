@@ -27,7 +27,7 @@ def app(tipo) :
             st.write('Tienen forma de **línea recta**. \
               \n Por ejemplo: Si tomamos la función $y='+latex(exp)+'$ y representamos una tabla de valores  \
               vemos que los puntos de la gráfica están alineados:' )
-            col01, col02 = st.beta_columns([1,3])
+            col01, col02 = st.columns([1,3])
             d = tabla_valores(exp,tipo,9,4)
             with col01 :
                 st.dataframe(d['df'])

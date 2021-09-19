@@ -12,7 +12,7 @@ def app(funcion) :
     st.latex(tex)
     st.warning(":point_left: :point_left: :point_left: Puedes cambiar de ejemplo modificando los **parámetros** de la función desde el **menú desplegable de la izquierda**")
     st.write(":unlock: Vamos a ver cómo se comporta la función ejemplo:")
-    col11, col12 = st.beta_columns([1,2])
+    col11, col12 = st.columns([1,2])
 
     with col11 :
         # corte_x = ' No tiene' if len(list(solveset(eq, domain=S.Reals))) == 0 else "$"+", ".join(map(latex,d['raices']))+"$"
@@ -45,7 +45,7 @@ def app(funcion) :
     p=st.selectbox('Selecciona el número de puntos que se representarán', (10,20,50))
     st.write("Dando valores a la variable **x** y sustituyendo en la expresión $"+latex(d['exp'])+"$, obtenemos los valores de la **y**:")
 
-    col31, col32 = st.beta_columns([1,3])
+    col31, col32 = st.columns([1,3])
     d5 = tabla_valores(eq,tipo,p,2)
     with col31 :
 
@@ -81,7 +81,7 @@ def app(funcion) :
 
     st.write("Modifica los actuadores para comprobar si un valor determinado pertenece al dominio o al recorrido")
 
-    col21, col22= st.beta_columns([1,4])
+    col21, col22= st.columns([1,4])
     with col21 :
         var=y if st.radio('Selecciona:',('Dominio','Recorrido')) == 'Recorrido' else x
         cte = st.select_slider(str(var),options=list(np.arange(-3,3.25,0.25)),value=1)
@@ -103,7 +103,7 @@ def app(funcion) :
         # graficamos la Pendiente
         st.subheader('Estudiando la pendiente y la ordenada de $y='+latex(eq)+"$")
         st.write('Modifica los deslizadores para seleccionar puntos diferentes de la recta:')
-        col31, col32 = st.beta_columns([1,4])
+        col31, col32 = st.columns([1,4])
         with col31 :
             x0 = int(st.select_slider('x0', options=[2,4,6]))
             x1 = int(st.select_slider('x1', options=[8,10,12]))

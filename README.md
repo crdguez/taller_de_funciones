@@ -61,4 +61,4 @@ https://share.streamlit.io/crdguez/taller_de_funciones/main/main.py
 
 ### Desplegada en *Google colab*
 
-Para ello ejecutamos desde *Google colab* el *notebook* que aparece en la raíz del repositorio
+Para ello ejecutamos desde *Google colab* el *notebook* que aparece en la raíz del repositorio.
