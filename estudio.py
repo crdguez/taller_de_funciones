@@ -50,6 +50,8 @@ def app(funcion) :
     with col31 :
 
         st.dataframe(d5['df'])
+        # st.dataframe(d5)
+        # st.write('error')
 
         # lista=np.linspace(0.0001,2,p) if tipo == 'logaritmica' else np.linspace(-2,2,p)
         # if tipo == 'lineal' and poly(d['exp'],x).degree() == 0 :

@@ -99,9 +99,11 @@ def tabla_valores(eq, tipo, num, max):
     if tipo == 'lineal' and poly(eq,x).degree() == 0 :
     # if tipo == 'lineal'  :
         lista2 = [eq for i in lista]
+        lista2 = np.float_(lista2)
     else :
         # lista2 = lambdify(x,eq)(lista)
         lista2 = [eq.subs(x,i) for i in lista]
+        lista2 = np.float_(lista2)
 
     p = plot_implicit(Eq(y,eq), (x, -10, 10), (y, -10, 10),line_color='yellow')
     fg, ax = p._backend.fig, p._backend.ax
