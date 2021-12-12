@@ -104,8 +104,11 @@ def exponencial():
     d['ex_gen']=ex_gen
     d['eq']=eq
     d['tex']=ex
-    d['md']= """Las funciones *exponenciales* son las funciones del tipo:
-       \n  $"""+r"""y=a^x$"""
+    d['md']= """Las funciones *exponenciales* tienen una expresión general del tipo:
+           \n :key: $y=a^x$ con $a > 0$
+           \n * Si $a > 1 \\to$  la función es creciente
+           \n * Si $a < 1 \\to$  la función es decreciente"""
+       # \n  $"""+r"""y=a^x$ con $a>0$"""+""" \n *Observa que si a es mayor que 1 la función es creciente y si es menor que uno decreciente*"""
     d['title']= 'Funciones exponenciales'
     d['tipo']=exponencial.__name__
     return d
