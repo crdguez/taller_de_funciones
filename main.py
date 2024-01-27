@@ -105,7 +105,7 @@ def exponencial():
     d['eq']=eq
     d['tex']=ex
     d['md']= """Las funciones *exponenciales* tienen una expresión general del tipo:
-           \n :key: $y=a^x$ con $a > 0$
+           \n  $y=a^x$ con $a > 0$
            \n * Si $a > 1 \\to$  la función es creciente
            \n * Si $a < 1 \\to$  la función es decreciente"""
        # \n  $"""+r"""y=a^x$ con $a>0$"""+""" \n *Observa que si a es mayor que 1 la función es creciente y si es menor que uno decreciente*"""
@@ -130,6 +130,25 @@ def logaritmica():
        \n  $"""+r"""y=\log_{a}x$"""
     d['title']= 'Funciones logarítmicas'
     d['tipo']=logaritmica.__name__
+    return
+
+def irracional():
+    sz=3
+    ex_gen='root(x,n)'
+    st.sidebar.write('Parámetros de $y='+r"\sqrt[n]{x}$ :")
+    rango = list(np.arange(0.25,sz+1,0.25))
+    rango.remove(1)
+    n = st.sidebar.select_slider('n',options=rango,value=2)
+    ex=r'\sqrt[n]{x}'
+    eq = parse_latex(ex).subs('n',n)
+    d=dict()
+    d['ex_gen']=ex_gen
+    d['eq']=eq
+    d['tex']=ex.replace('n',latex(eq.args[1]))
+    d['md']= """Las funciones *irracionales* son las funciones del tipo:
+       \n  $"""+r"""y=\sqrt[n]{x}$"""
+    d['title']= 'Funciones irracionales'
+    d['tipo']=irracional.__name__
     return d
 
 PAGES = {
@@ -142,6 +161,7 @@ FUNCIONES = {
     "Lineales": lineal,
     "Cuadráticas": cuadratica,
     "Proporcionalidad inversa": prop_inversa,
+    "Irracional": irracional,
     "Exponencial": exponencial,
     "Logarítmica": logaritmica,
 }

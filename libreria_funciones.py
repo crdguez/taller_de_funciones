@@ -14,7 +14,7 @@ def carac(exp,tipo) :
     d = dict()
     d['exp']=nsimplify(exp)
     # d['exp']=exp
-    #d['raices']=solve(exp)
+    # d['raices']=solve(exp)
     d['raices']=list(solveset(exp, domain=S.Reals))
     d['oy']=(0,exp.subs(x,0))
     #d['dominio']=S.Reals - singularities(exp,x)
